@@ -2,6 +2,13 @@
    if(!defined('INDEX')) die("");
    // Untuk Filter Detail Laporan Bulanan
    $filter = isset($_GET['filter']) ? explode(',', $_GET['filter']) : false;
+
+   // Cek level User
+   if ($level != 'owner') {
+      // Redirect User ke Dashboard
+      header('Location: index.php');
+      die();
+   }
 ?>
 
 <h2 class="judul">Data Laporan Bulanan</h2>

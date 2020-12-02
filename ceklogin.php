@@ -12,6 +12,7 @@
    if($jml > 0){
       $_SESSION['username'] = $data['username'];
       $_SESSION['password'] = $data['password'];
+      $_SESSION['level'] = $data['level'];
       
       header('location: index.php');
    }else{
