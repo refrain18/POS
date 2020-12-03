@@ -1,5 +1,12 @@
 <?php
    if(!defined('INDEX')) die("");
+
+   // Cek level User
+   if ($level != 'owner') {
+      // Redirect User ke Dashboard
+      header('Location: index.php');
+      die();
+   }
 ?>
 
 <h2 class="judul">Data Laporan Harian</h2>

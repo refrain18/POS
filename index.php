@@ -28,8 +28,8 @@
             <ul class="menu">
                <li> <a href="?hal=dashboard" class="aktif">Dashboard</a> </li>
                <li> <a href="?hal=pos">Tambah Transaksi</a> </li>
-               <li> <a href="?hal=laporan_harian">Laporan Harian</a> </li>
                <?php if($level == 'owner') : ?>
+                  <li> <a href="?hal=laporan_harian">Laporan Harian</a> </li>
                   <li> <a href="?hal=laporan_bulanan">Laporan Bulanan</a> </li>
                <?php endif; ?>
                <li> <a href="logout.php">Keluar</a> </li>
