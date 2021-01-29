@@ -20,8 +20,11 @@
    </thead>
    <tbody>
 <?php
+   // Mengambil current timestamp
+   ini_set('date.timezone', 'Asia/Jakarta');
+   $timestamp = date('Y-m-d');
 
-   $query = mysqli_query($con, "SELECT * FROM payment ORDER BY payment_id ASC");
+   $query = mysqli_query($con, "SELECT * FROM payment WHERE waktu = '$timestamp' ORDER BY payment_id ASC");
    $no = 0;
    while($data = mysqli_fetch_array($query)){
       $no++;
