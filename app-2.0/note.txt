@@ -1,0 +1,37 @@
+menu gaji pegawai masih kurang cetak
+validasi di menu data pegawai belum bisa
+alamat hilang jika di edit di menu data pegawai
+
+atur di daftar_hpp.php query untuk menampilkan harga dari tabel   
+stok_masuk lalu rata rata kan harga setelah itu berdasarkan bulan
+
+cara merubah harga produk langsung dari tabel stok masuk
+
+sop_rundown jika sudah klik start di form tambah sop maka akan pergi ke menu sop rundown di menu itu ada tombol start dan stop, jika waktu terpenuhi maka akan masuk ke database complete jika waktu di stop dan tidak terpenuhi maka akan masuk ke database incomplete dan mengeluarkan textfiled keterangan, waktu tersimpan otomatis jika sudah selesai ataupun di stop.
+
+edit di stok masuk mingguan tidak bisa
+edt di stok keluar mingguan tidak bisa
+
+semua cetak belum
+pagination belum semua
+testing ada yang belum
+
+bagian backend rekap masih belum tampil data
+
+backend masih kosong
+ap_hapus
+ap_insert
+ap_update
+dh_cetak_detail
+dh_cetak
+k_hapus
+k_insert
+k_update
+ra_cetak_detail
+ra_cetak
+rk_cetak_detail
+rk_cetak
+rsk_cetak_detail
+rsk_cetak
+rsm_cetak_detail
+rsm_cetak
