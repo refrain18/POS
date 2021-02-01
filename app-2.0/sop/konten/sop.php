@@ -17,7 +17,9 @@
          <th>Waktu Perawatan</th>
          <th>Hasil Rundown</th>
          <th>Keterangan</th>
+         <?php if($level == 'owner') : ?>
          <th>Aksi</th>
+         <?php endif; ?>
       </tr>
    </thead>
    <tbody>
@@ -38,10 +40,12 @@
          <td><?= $data['waktu'] ?></td>
          <td><?= $data['hasil_rundown'] ?></td>
          <td><?= $data['keterangan'] ?></td>
-         <td>
-            <a class="tombol edit" href="?hal=sop_edit&id_sop=<?= $data['id_sop'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=sop_hapus&id_sop=<?= $data['id_sop'] ?>"> Hapus </a>
-         </td>
+         <?php if($level == 'owner') : ?>
+            <td>
+               <a class="tombol edit" href="?hal=sop_edit&id_sop=<?= $data['id_sop'] ?>"> Edit </a>
+               <a class="tombol hapus" href="?hal=sop_hapus&id_sop=<?= $data['id_sop'] ?>" onclick="return confirm('Anda yakin akan meghapus data ini?');"> Hapus </a>
+            </td>
+         <?php endif; ?>
      </tr>
 <?php
    }

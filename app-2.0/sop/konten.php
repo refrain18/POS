@@ -2,7 +2,7 @@
    if(!defined('INDEX')) die("");
 
    $halaman = array("sop","rekap_harian","rekap_bulanan",
-    "sop_tambah","sop_insert","sop_lihat","sop_hapus","sop_rundown",
+    "sop_tambah","sop_timer","sop_insert","sop_lihat","sop_hapus","sop_rundown",
     "rh_cetak","rh_detail","rh_cetak_detail","rb_cetak",
     "rb_detail","rb_cetak_detail");
 

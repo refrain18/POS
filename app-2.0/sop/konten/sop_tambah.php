@@ -24,7 +24,7 @@ function validateForm() {
 }
 </script> -->
 <h2 class="judul">Tambah SOP Salon Mumtaza</h2>
-<form name="myForm" onsubmit="return validateForm()" method="post" action="?hal=sop_insert" enctype="multipart/form-data">
+<form name="myForm" onsubmit="return confirm('Waktu akan dijalankan. Apa anda yakin untuk memulai?');"  method="post" action="?hal=sop_timer" enctype="multipart/form-data">
 
 <?php
       
@@ -75,11 +75,11 @@ function validateForm() {
 
    <div class="form-group">
       <label for="foto_pegawai">Foto Pegawai</label>   
-      <div class="input"><input type="file" id="fp" name="fp" onkeyup="validasi()"></div> 
+      <div class="input"><input type="file" id="fp" name="fp" required></div> 
    </div>
    <div class="form-group">
       <label for="foto_customer">Foto Bukti Customer</label>   
-      <div class="input"><input type="file" id="fc" name="fc" onkeyup="validasi()"></div> 
+      <div class="input"><input type="file" id="fc" name="fc" required></div> 
    </div>
 
    <div class="form-group">

@@ -33,9 +33,10 @@
 
         <ul>
             <li class="dropbtn"><a href="?hal=sop">Home</a></li>
-            <li class="dropbtn1"><a href="?hal=rekap_harian">Rekap SOP Harian</a></li>
-            <li class="dropbtn2"><a href="?hal=rekap_bulanan">Rekap SOP Bulanan</a></li>
-            
+            <?php if($level == 'owner') : ?>
+                <li class="dropbtn1"><a href="?hal=rekap_harian">Rekap SOP Harian</a></li>
+                <li class="dropbtn2"><a href="?hal=rekap_bulanan">Rekap SOP Bulanan</a></li>
+            <?php endif; ?>
             <!-- penutup level -->
             <li>
                 <a href="logout.php">Logout</a>
@@ -54,10 +55,10 @@
     <section class="main">
             <?php include "konten.php"; ?>
     </section>
-<script src="js/script.js"></script>
-      <footer>
-         Copyright &copy; Abka Zailani
-      </footer>
+    <footer>
+        Copyright &copy; Abka Zailani
+    </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>
 <?php

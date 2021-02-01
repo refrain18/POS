@@ -40,9 +40,9 @@
          </section>
       </div>
       <script>
-            // Menghilangkan Notif dalam interval waktu tertentu
-               $('#notif').delay(3000).fadeOut(300);
-            </script>
+         // Menghilangkan Notif dalam interval waktu tertentu
+         $('#notif').delay(3000).fadeOut(300);
+      </script>
       <footer>
          Copyright &copy; Abka Zailani
       </footer>

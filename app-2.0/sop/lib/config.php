@@ -2,7 +2,7 @@
   $host = "localhost";
   $user = "root";
   $pass = "";
-  $db   = "mumq3842_keu";
+  $db   = "p_mumjew_subdomain";
 
   $con = mysqli_connect($host, $user, $pass, $db);
   if (mysqli_connect_errno()){
