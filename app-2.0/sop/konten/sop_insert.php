@@ -59,7 +59,7 @@
         ");
 
         $status = true;
-        if($execQuery){
+        if($query){
             $message = "Data SOP telah disimpan!";
         }else{
             $message = "Query Gagal! ".mysqli_error($con);
