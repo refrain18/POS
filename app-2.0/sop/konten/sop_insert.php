@@ -35,7 +35,7 @@
         // Konversi string ke format waktu
         $hasilDurasiSop = date("H:i:s", strtotime($hasilDurasiSop));
 
-        $query = "SELECT waktu FROM jenis_perawatan WHERE jp_id = '$sopArr[id_jenis_perawatan]'";
+        $query = "SELECT waktu, komisi FROM jenis_perawatan WHERE jp_id = '$sopArr[id_jenis_perawatan]'";
         $execQuery = mysqli_query($con, $query);
         $queryResult = mysqli_fetch_assoc($execQuery);
 
@@ -43,8 +43,10 @@
 
         if ($hasilDurasiSop < $targetDurasi) {
             $hasil_run_down = "Tidak terpenuhi";
+            $komisi = 0;
         } elseif ($hasilDurasiSop >= $targetDurasi) {
             $hasil_run_down = "Terpenuhi";
+            $komisi = $queryResult['komisi'];
         }
 
         $query = mysqli_query($con, "INSERT INTO sop SET 
@@ -55,7 +57,8 @@
             foto_customer = '$sopArr[foto_customer]',
             waktu = '$hasilDurasiSop',
             hasil_rundown = '$hasil_run_down',
-            keterangan = '$keterangan'
+            keterangan = '$keterangan',
+            komisi = '$komisi'
         ");
 
         $status = true;

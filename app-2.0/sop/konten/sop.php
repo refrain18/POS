@@ -17,6 +17,7 @@
          <th>Waktu Perawatan</th>
          <th>Hasil Rundown</th>
          <th>Keterangan</th>
+         <th>Komisi</th>
          <?php if($level == 'owner') : ?>
          <th>Aksi</th>
          <?php endif; ?>
@@ -24,7 +25,7 @@
    </thead>
    <tbody>
 <?php
-   $query = mysqli_query($con, "SELECT sop.*, pegawai.nama, jenis_perawatan.nama_perawatan FROM sop JOIN pegawai ON  
+   $query = mysqli_query($con, "SELECT sop.*, pegawai.nama, jenis_perawatan.nama_perawatan, sop.komisi FROM sop JOIN pegawai ON  
                                 sop.pegawai_id = pegawai.pegawai_id JOIN jenis_perawatan ON sop.jp_id = jenis_perawatan.jp_id 
                                 ORDER BY id_sop DESC");
    $no = 0;
@@ -40,6 +41,7 @@
          <td><?= $data['waktu'] ?></td>
          <td><?= $data['hasil_rundown'] ?></td>
          <td><?= $data['keterangan'] ?></td>
+         <td><?= $data['komisi'] ?></td>
          <?php if($level == 'owner') : ?>
             <td>
                <a class="tombol edit" href="?hal=sop_edit&id_sop=<?= $data['id_sop'] ?>"> Edit </a>
