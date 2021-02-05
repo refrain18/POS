@@ -4,7 +4,7 @@
 
 <h2 class="judul">Laporan Keuangan Harian</h2>
 <a class="tombol" href="?hal=pos_tambah">Tambah</a>
-
+<?php if($level == 'owner') : ?>   
 <table class="table">
    <thead>
       <tr>
@@ -47,3 +47,4 @@
 ?>
    </tbody>
 </table>
+<?php endif; ?>

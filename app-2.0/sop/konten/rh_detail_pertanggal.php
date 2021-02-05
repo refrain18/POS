@@ -3,6 +3,10 @@
    // Untuk Filter Detail Laporan Bulanan
    $filter_tgl = isset($_GET['filter']) && !empty($_GET['filter']) ? $_GET['filter'] : false;
 
+   if (!$filter_tgl) {
+      echo "<meta http-equiv='refresh' content='1; url=?hal=rekap_harian'>";
+   }
+
    $query = "SELECT 
       a.tanggal, COUNT(id_sop) as total_sop, 
       COUNT(id_sop) as total_cus, 
@@ -67,7 +71,7 @@
          <td><?= $data['total_komisi'] ?></td>
          <?php if($level == 'owner') : ?>
             <td>
-               <a class="tombol edit" href="?hal=sop_edit&q=<?= "$data[pegawai_id],$filter_tgl" ?>"> Detail </a>
+               <a class="tombol edit" href="?hal=rh_detail_perorangan&q=<?= "$data[pegawai_id],$filter_tgl" ?>"> Detail </a>
             </td>
          <?php endif; ?>
      </tr>

@@ -50,7 +50,7 @@
       <td><?php echo $resQuery['total_completed']; ?></td>
       <td><?php echo $resQuery['total_incompleted']; ?></td>
       <td>
-         <a class="tombol_detail" href="?hal=rh_detail&filter=<?php echo $resQuery['tanggal']; ?>"> Detail </a>
+         <a class="tombol_detail" href="?hal=rh_detail_pertanggal&filter=<?php echo $resQuery['tanggal']; ?>"> Detail </a>
       </td>
    </tr>
 <?php endwhile; ?>

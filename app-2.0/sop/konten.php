@@ -3,7 +3,7 @@
 
    $halaman = array("sop","rekap_harian","rekap_bulanan",
     "sop_tambah","sop_timer","sop_insert","sop_lihat","sop_hapus","sop_rundown",
-    "rh_cetak","rh_detail","rh_cetak_detail","rb_cetak",
+    "rh_cetak","rh_detail_pertanggal", "rh_detail_perorangan","rh_cetak_detail","rb_cetak",
     "rb_detail","rb_cetak_detail");
 
    if(isset($_GET['hal'])) $hal = $_GET['hal'];
