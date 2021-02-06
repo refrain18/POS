@@ -68,6 +68,10 @@ function validateForm() {
       <div class="input"><input type="number" id="transport_umakan" name="transport_umakan" onkeyup="sum();" required></div> 
    </div>
    <div class="form-group">
+      <label >Komisi</label>   
+      <div class="input"><input type="number" id="komisi" name="komisi" oonkeyup="sum();" readonly></div> 
+   </div>
+   <div class="form-group">
       <label >Total Gaji</label>   
       <div class="input"><input type="number" id="totalgaji" name="totalgaji" onkeyup="kurangin();" readonly></div> 
    </div>
@@ -96,9 +100,10 @@ function validateForm() {
       var txtThirthNumberValue = document.getElementById('loyalitas').value;
       var txtFourthNumberValue = document.getElementById('kedisiplinan').value;
       var txtFifthNumberValue = document.getElementById('transport_umakan').value;
+      var txtSixthNumberValue = document.getElementById('komisi').value;
       var result = parseFloat(txtFirstNumberValue) + parseFloat(txtSecondNumberValue) + 
                    parseFloat(txtThirthNumberValue) + parseFloat(txtFourthNumberValue) +
-                   parseFloat(txtFifthNumberValue);
+                   parseFloat(txtFifthNumberValue) + parseFloat(txtSixthNumberValue);
       if (!isNaN(result)) {
          document.getElementById('totalgaji').value = result;
       }

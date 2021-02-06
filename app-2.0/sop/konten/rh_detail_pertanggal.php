@@ -14,7 +14,7 @@
       (SELECT COUNT(hasil_rundown) FROM sop c WHERE c.tanggal = a.tanggal AND c.hasil_rundown != 'Terpenuhi') as total_incompleted 
       FROM sop a WHERE a.tanggal = '$filter_tgl' GROUP BY a.tanggal;
    ";
-   $execQuery = mysqli_query($con, $query);
+   $execQuery = mysqli_query($con, $query) OR die("Terjadi Kesalahan pada Query: ".mysqli_error($con));
    $resQuery = mysqli_fetch_assoc($execQuery);
    $no = 0;
 ?>
@@ -50,9 +50,9 @@
    $query = "SELECT 
       pegawai.pegawai_id, 
       pegawai.nama, 
-      (SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(waktu))) FROM sop sop_b WHERE sop_b.tanggal = sop_a.tanggal) as total_waktu, 
-      (SELECT COUNT(hasil_rundown) FROM sop sop_c WHERE sop_c.tanggal = sop_a.tanggal AND sop_c.hasil_rundown = 'Terpenuhi') as total_completed, 
-      (SELECT COUNT(hasil_rundown) FROM sop sop_d WHERE sop_d.tanggal = sop_a.tanggal AND sop_d.hasil_rundown != 'Terpenuhi') as total_incompleted, 
+      (SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(waktu))) FROM sop sop_b WHERE sop_b.tanggal = sop_a.tanggal AND sop_b.pegawai_id = sop_a.pegawai_id) as total_waktu, 
+      (SELECT COUNT(hasil_rundown) FROM sop sop_c WHERE sop_c.tanggal = sop_a.tanggal AND sop_c.pegawai_id = sop_a.pegawai_id AND sop_c.hasil_rundown = 'Terpenuhi') as total_completed, 
+      (SELECT COUNT(hasil_rundown) FROM sop sop_d WHERE sop_d.tanggal = sop_a.tanggal AND sop_d.pegawai_id = sop_a.pegawai_id AND sop_d.hasil_rundown != 'Terpenuhi') as total_incompleted, 
       (SELECT SUM(komisi) FROM sop sop_e WHERE sop_e.tanggal = sop_a.tanggal) as total_komisi 
       FROM sop sop_a JOIN pegawai ON sop_a.pegawai_id = pegawai.pegawai_id 
       WHERE sop_a.tanggal = '$filter_tgl' GROUP BY pegawai_id;

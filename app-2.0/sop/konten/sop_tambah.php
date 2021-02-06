@@ -27,61 +27,66 @@ function validateForm() {
 <form name="myForm" onsubmit="return confirm('Waktu akan dijalankan. Apa anda yakin untuk memulai?');"  method="post" action="?hal=sop_timer" enctype="multipart/form-data">
 
 <?php
-      
-      $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+  
+  $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
 
-      if($notif == 'tipefile') {
-         echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
-      }elseif($notif == 'ukuranfile') {
-         echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>";
-      }elseif($notif == 'tipefilec'){
-        echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
-      }elseif ($notif == 'ukuranfilec') {
-        echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>";
-      }
+  if($notif == 'tipefile') {
+      echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+  }elseif($notif == 'ukuranfile') {
+      echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>";
+  }elseif($notif == 'tipefilec'){
+    echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+  }elseif ($notif == 'ukuranfilec') {
+    echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>";
+  }
 
 ?>
 
-<div class="form-group">
-      <label for="nama_pegawai">Nama Pegawai</label>   
-      <div class="input"><select name="pegawai_id">
-                <?php
-                    $query = mysqli_query($con, "SELECT pegawai_id, nama FROM pegawai ORDER BY pegawai_id ASC");
-                    while($row=mysqli_fetch_assoc($query)){
-                        if($pegawai_id == $row['pegawai_id']) {
-                            echo "<option value='$row[pegawai_id]' selected='true'>$row[nama]</option>";
-                        }else{
-                            echo "<option value='$row[pegawai_id]'>$row[nama]</option>";
-                        }
-                    }
-                ?>
-            </select></div> 
-   </div>
-   <div class="form-group">
-      <label for="nama_perawatan">Jenis Perawatan</label>       
-        <div class="input"><select name="jp_id">
-                            <?php
-                                $query = mysqli_query($con, "SELECT jp_id, nama_perawatan FROM jenis_perawatan ORDER BY jp_id ASC");
-                                while($row=mysqli_fetch_assoc($query)){
-                                    if($jp_id == $row['jp_id']) {
-                                        echo "<option value='$row[jp_id]' selected='true'>$row[nama_perawatan]</option>";
-                                    }else{
-                                        echo "<option value='$row[jp_id]'>$row[nama_perawatan]</option>";
-                                    }
-                                }
-                            ?>
-                            </select></div> 
-    </div>     
+  <div class="form-group">
+    <label for="nama_pegawai">Nama Pegawai</label>   
+    <div class="input">
+      <select name="pegawai_id">
+        <?php
+          $query = mysqli_query($con, "SELECT pegawai_id, nama FROM pegawai ORDER BY pegawai_id ASC");
+          while($row=mysqli_fetch_assoc($query)){
+            if($pegawai_id == $row['pegawai_id']) {
+              echo "<option value='$row[pegawai_id]' selected='true'>$row[nama]</option>";
+            }else{
+              echo "<option value='$row[pegawai_id]'>$row[nama]</option>";
+            }
+          }
+        ?>
+      </select>
+    </div> 
+  </div>
+  <div class="form-group">
+    <label for="nama_perawatan">Jenis Perawatan</label>       
+    <div class="input">
+      <select name="jp_id">
+        <?php
+          $query = mysqli_query($con, "SELECT jp_id, nama_perawatan FROM jenis_perawatan ORDER BY jp_id ASC");
+          while($row=mysqli_fetch_assoc($query)){
+            if($jp_id == $row['jp_id']) {
+              echo "<option value='$row[jp_id]' selected='true'>$row[nama_perawatan]</option>";
+            }else{
+              echo "<option value='$row[jp_id]'>$row[nama_perawatan]</option>";
+            }
+          }
+        ?>
+      </select>
+    </div> 
+  </div>     
 
-   <div class="form-group">
+  <div class="form-group">
       <label for="foto_pegawai">Foto Pegawai</label>   
       <div class="input"><input type="file" id="fp" name="fp" required></div> 
-   </div>
-   <div class="form-group">
+  </div>
+  <div class="form-group">
       <label for="foto_customer">Foto Bukti Customer</label>   
       <div class="input"><input type="file" id="fc" name="fc" required></div> 
-   </div>
+  </div>
 
-   <div class="form-group">
+  <div class="form-group">
       <input type="submit" value="Start" class="tombol start">
+  </div>
 </form>

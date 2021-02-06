@@ -37,7 +37,8 @@ rsm_cetak
 
 === SOP ===
 
-- sop_rundown jika sudah klik start di form tambah sop maka akan pergi ke menu sop rundown di menu itu ada tombol start dan stop, 
+- Timer (Done)
+sop_rundown jika sudah klik start di form tambah sop maka akan pergi ke menu sop rundown di menu itu ada tombol start dan stop, 
 jika waktu terpenuhi maka akan masuk ke database complete jika waktu di stop dan tidak terpenuhi maka akan masuk ke database incomplete 
 dan mengeluarkan textfiled keterangan, waktu tersimpan otomatis jika sudah selesai ataupun di stop.
 
