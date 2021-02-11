@@ -1,56 +1,78 @@
 <?php
    if(!defined('INDEX')) die("");
 ?>
+<!-- Modal -->
+<div id="modal">
+   <h1>Pilih SOP!</h1>
+   <form name="sopForm" id="sop-form" onsubmit="return validateSopForm(this);"  method="post" action="?hal=sop_timer" enctype="multipart/form-data">
 
+      <?php 
+      $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
 
-<h1 >Selamat Datang di Standard Operating Procedure</h1>
+      if($notif == 'tipefile') {
+            echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+      }elseif($notif == 'ukuranfile') {
+            echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>";
+      }elseif($notif == 'tipefilec'){
+         echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
+      }elseif ($notif == 'ukuranfilec') {
+         echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>";
+      }
+
+      $query = "SELECT jp_id, nama_perawatan FROM jenis_perawatan";
+      $execQuery = mysqli_query($con, $query) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
+      ?>
+
+      <div class="form-group">
+         <label for="foto_pegawai">Upload Foto Clusterx: </label>
+         <div class="input"><input type="file" id="fp" name="fp" required></div> 
+      </div>
+      <div class="form-group">
+         <label for="pilih_jk">Jenis Perawatan: </label>
+         <div class="input-checkbox">
+            <?php while($resQueryInLoop = mysqli_fetch_assoc($execQuery)) : ?>
+               <span>
+                  <input type="checkbox" class="sop_checkbox" onclick="timeEstCalc($(this).parent().parent().parent().parent());" name="pilihan_jenis_perawatan" value="<?php echo $resQueryInLoop['jp_id'];?>"><?php echo " $resQueryInLoop[nama_perawatan]"; ?>
+               </span><br>
+               <?php endwhile; ?>
+            </div> 
+      </div>
+      <div class="form-group" id="timeResWrapper">
+         <label for="time">Time : </label>   
+         <div class="input">
+            <input type="text" id="totalSopTime" name="timeSop" value="00:00" disabled>
+         </div> 
+      </div>
+      <div class="form-group">
+         <input type="submit" value="Start" class="tombol start">
+      </div>
+   </form>
+</div>
+
+<h1>Selamat Datang di Standard Operating Procedure</h1>
 <h3 class="judul">Anda login sebagai <?= ucfirst($level) ?> </h3>
-<a class="tombol" href="?hal=sop_tambah">Tambah</a>
-<table class="table">
-   <thead>
-      <tr>
-         <th>No</th>
-         <th>Nama Pegawai</th>
-         <th>Jenis Perawatan</th>
-         <th>Foto Pegawai</th>
-         <th>Foto Bukti Customer</th>
-         <th>Waktu Perawatan</th>
-         <th>Hasil Rundown</th>
-         <th>Keterangan</th>
-         <th>Komisi</th>
-         <?php if($level == 'owner') : ?>
-         <th>Aksi</th>
-         <?php endif; ?>
-      </tr>
-   </thead>
-   <tbody>
+
 <?php
-   $query = mysqli_query($con, "SELECT sop.*, pegawai.nama, jenis_perawatan.nama_perawatan, sop.komisi FROM sop JOIN pegawai ON  
-                                sop.pegawai_id = pegawai.pegawai_id JOIN jenis_perawatan ON sop.jp_id = jenis_perawatan.jp_id 
-                                ORDER BY id_sop DESC");
-   $no = 0;
-   while($data = mysqli_fetch_array($query)){
-      $no++;
+   $query = "SELECT nama FROM pegawai WHERE status = 'on'";
+   $execQuery = mysqli_query($con, $query) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
+   $i=0;
 ?>
-      <tr>
-         <td><?= $no ?></td>
-         <td><?= $data['nama'] ?></td>
-         <td><?= $data['nama_perawatan'] ?></td>
-         <td><?= $data['foto_pegawai'] ?></td>
-         <td><?= $data['foto_customer'] ?></td>
-         <td><?= $data['waktu'] ?></td>
-         <td><?= $data['hasil_rundown'] ?></td>
-         <td><?= $data['keterangan'] ?></td>
-         <td><?= $data['komisi'] ?></td>
-         <?php if($level == 'owner') : ?>
-            <td>
-               <a class="tombol edit" href="?hal=sop_edit&id_sop=<?= $data['id_sop'] ?>"> Edit </a>
-               <a class="tombol hapus" href="?hal=sop_hapus&id_sop=<?= $data['id_sop'] ?>" onclick="return confirm('Anda yakin akan meghapus data ini?');"> Hapus </a>
-            </td>
-         <?php endif; ?>
-     </tr>
-<?php
-   }
-?>
-   </tbody>
-</table>
+<div data-tabs>
+   <?php while($resQuery = mysqli_fetch_assoc($execQuery)) : ;?>
+      <div><?php echo $resQuery['nama'];$i++; ?></div>
+   <?php endwhile; ?>
+</div>
+
+<div data-panes>
+   <?php for($j=0;$j<$i;$j++) : ;?>
+      <div>
+         <p>Jenis Perawatan : </p><br>
+         <p><span>00:00</span> S/D <span>00:00</span></p><br>
+         <button class="tombol edit" onclick="modalTrigger();" type="button">Start</button>
+         <button class="tombol hapus" type="button">Stop</button>
+
+      </div>
+   <?php endfor; ?>
+</div>
+
+<script src="js/tabbisCaller.js" defer></script>

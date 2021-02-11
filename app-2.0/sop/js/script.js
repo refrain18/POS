@@ -82,7 +82,7 @@ window.onclick = function (event) {
 }
 
 // Menghilangkan Notif dalam interval waktu tertentu
-// $('#notif').delay(3000).fadeOut(300);
+$('#notif').delay(3000).fadeOut(300);
 
 // Var untuk Sop Timer
 var resultTime;
@@ -205,4 +205,48 @@ function getSopTime() {
   // Mengirim Request
   http.open("GET", "request/sop-time.php", true);
   http.send();
+}
+
+function timeEstCalc(context) {
+  // console.log("Checkbox clicked...");
+  let totalResTimeContext = context.find("#totalSopTime");
+  let sopArr = [];
+
+  $('.sop_checkbox').each(function () {
+    if ($(this).is(":checked")) {
+      sopArr.push($(this).val());
+    }
+  });
+
+  sopArr = sopArr.toString();
+
+  $.ajax({
+    url: "request/sop-time-sum.php",
+    method: "POST",
+    dataType: "json",
+    data: { sopArr: sopArr },
+    success: function (res) {
+      if (res.status) {
+        // console.log(res);
+        $(totalResTimeContext[0]).val(res.data != "" ? res.data.total_sop_time_est : "00:00");
+      }
+    },
+    error: function () {
+      alert("Terjadi kesalahan!");
+    }
+  });
+}
+
+function validateSopForm(context) {
+  if (!confirm('Waktu akan dijalankan. Apa anda yakin untuk memulai?')) {
+    return false;
+  }
+  for (let i = 0; i < context.pilihan_jenis_perawatan.length; i++) {
+    if (context.pilihan_jenis_perawatan[i].checked == true) {
+      alert("Form Dikirim!");
+      return true;
+    }
+  }
+  alert("Checkbox tidak boleh kosong!");
+  return false;
 }

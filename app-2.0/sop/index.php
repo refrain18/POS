@@ -21,6 +21,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@300;400&family=Coustard&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="css/tabbis.min.css"/>
+    <link rel="stylesheet" href="css/skotchmodal.css"/>
     <!-- <link rel="stylesheet" href="css/style1.css"/> -->
     <!-- <link rel="stylesheet" href="css/bootstrap.min.css"/> -->
 </head>
@@ -58,7 +60,11 @@
     <footer>
         Copyright &copy; Abka Zailani
     </footer>
+
+    <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/tabbis.es6.min.js"></script>
+    <script src="js/skotchmodal.js"></script>
 </body>
 </html>
 <?php

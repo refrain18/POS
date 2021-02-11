@@ -428,11 +428,18 @@ label.label_tahun_rb {
 }
 
 /* Form */
-input, select{
+.input-checkbox input, 
+.input-checkbox select {
+  padding: 15px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+}
+.input input,
+.input select{
   width: 89%;
-   padding: 15px 20px;
-   margin: 8px 0;
-   border: 1px solid #ccc;
+  padding: 15px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
 }
 input[type=date]{
   width: 25%;
@@ -547,7 +554,7 @@ input.t_search {
   width: 30%;
   font-weight: bold;
 }
-.form-group .input{
+.form-group .input, .input-checkbox{
   display: block;
   width: 50%;
   float: left;
