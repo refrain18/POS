@@ -111,15 +111,139 @@ pg - pegawai
    </tbody>
 </table>
 
-- script.js (timer class)
+- script.js (timer function)
 
-// Timer Class
+// Var untuk Sop Timer
+var resultTime;
+
+function insertSop(resTime, ket = "-") {
+  // Deklarasi Variabel
+  var http = new XMLHttpRequest();
+  var req, res;
+
+  // Mengambil Data yang akan di kirim
+  const dataSet = {
+    completedTime: resTime,
+    keterangan: ket
+  };
+
+  // Menyiapkan Request
+  req = `hasilDurasiSop=${dataSet.completedTime}&ket=${dataSet.keterangan}`;
+
+  // Menjalankan fungsi ketika response siap
+  http.onreadystatechange = function () {
+    // Cek Status response
+    if (this.readyState == 4 && this.status == 200) {
+      // Konversi string response ke format json
+      res = JSON.parse(this.responseText);
+
+      if (res.status) {
+        // Menampilkan Alert Sukses
+        alert(res.message);
+        window.location.href = "?hal=sop";
+      } else {
+        // Error Handling
+        alert("Terjadi kesalahan pada Server. Pesan Error : " + res.message);
+      }
+    }
+  };
+  // Mengirim Request
+  http.open("POST", "konten/sop_insert.php", true);
+  http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  http.send(req);
+}
+
+function startTimer(timeEstimation) {
+  var sec, min, hrs;
+  sec = 0;
+  min = 0;
+  hrs = 0;
+
+  var targetTime;
+  targetTime = timeEstimation;
+
+  timer = setInterval(function () {
+    sec = parseInt(sec);
+    min = parseInt(min);
+    hrs = parseInt(hrs);
+
+    sec++;
+    if (sec >= 60) {
+      min++;
+      sec = 0;
+    }
+    if (min >= 60) {
+      hrs++;
+      min = 0;
+      sec = 0;
+    }
+    if (sec < 10 || sec == 0) {
+      sec = '0' + sec;
+    }
+    if (min < 10 || min == 0) {
+      min = '0' + min;
+    }
+    if (hrs < 10 || hrs == 0) {
+      hrs = '0' + hrs;
+    }
+
+    var durasi = document.getElementById("hasilDurasiSop");
+    if (durasi != null) {
+      durasi.innerHTML = hrs + ':' + min + ':' + sec;
+      resultTime = hrs + ':' + min + ':' + sec;
+    }
+
+    if (resultTime >= targetTime) {
+      clearInterval(timer);
+      alert("Waktu telah selesai!");
+      insertSop(resultTime);
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  var conf = confirm('Anda yakin akan mengentikan Timer?');
+  if (conf == true) {
+    clearInterval(timer);
+    var ket = prompt("Waktu telah dihentikan, silahkan masukan keterangan penghentian waktu...");
+    insertSop(resultTime, ket);
+  }
+}
+
+function getSopTime() {
+  // Deklarasi Variabel
+  var http = new XMLHttpRequest();
+  var req, res;
+
+  // Menjalankan fungsi ketika response siap
+  http.onreadystatechange = function () {
+    // Cek Status response
+    if (this.readyState == 4 && this.status == 200) {
+      // Konversi string response ke format json
+      res = JSON.parse(this.responseText);
+
+      if (res.status) {
+        // Memulai Timer
+        startTimer(res.data);
+      } else {
+        // Error Handling
+        alert("Terjadi kesalahan pada Server. Pesan Error : " + res.message);
+      }
+    }
+  };
+  // Mengirim Request
+  http.open("GET", "request/sop-time.php", true);
+  http.send();
+}
+
+- Class Timer Backup
+
 class Timer {
   #resultTime;
   #timer;
 
   constructor() {
-    this.getSopTime();
+    this.#getSopTime();
   }
 
   #getSopTime() {
@@ -128,7 +252,7 @@ class Timer {
     var req, res;
 
     // Menjalankan fungsi ketika response siap
-    http.onreadystatechange = function () {
+    http.onreadystatechange = () => {
       // Cek Status response
       if (this.readyState == 4 && this.status == 200) {
         // Konversi string response ke format json
@@ -136,7 +260,7 @@ class Timer {
 
         if (res.status) {
           // Memulai Timer
-          Timer.startTimer(res.data);
+          this.#startTimer(res.data);
         } else {
           // Error Handling
           alert("Terjadi kesalahan pada Server. Pesan Error : " + res.message);
@@ -157,7 +281,7 @@ class Timer {
     var targetTime;
     targetTime = timeEstimation;
 
-    this.timer = setInterval(function () {
+    this.#timer = setInterval(() => {
       sec = parseInt(sec);
       min = parseInt(min);
       hrs = parseInt(hrs);
@@ -188,21 +312,12 @@ class Timer {
         resultTime = hrs + ':' + min + ':' + sec;
       }
 
-      if (Timer.resultTime >= targetTime) {
-        clearInterval(Timer.timer);
+      if (this.#resultTime >= targetTime) {
+        clearInterval(this.#timer);
         alert("Waktu telah selesai!");
-        Timer.insertSop(Timer.resultTime);
+        this.#insertSop(this.#resultTime);
       }
     }, 1000);
-  }
-
-  stopTimer() {
-    var conf = confirm('Anda yakin akan menghentikan Timer?');
-    if (conf == true) {
-      clearInterval(Timer.timer);
-      var ket = prompt("Waktu telah dihentikan, silahkan masukan keterangan penghentian waktu...");
-      Timer.insertSop(Timer.resultTime, ket);
-    }
   }
 
   #insertSop(resTime, ket = "-") {
@@ -240,5 +355,14 @@ class Timer {
     http.open("POST", "konten/sop_insert.php", true);
     http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     http.send(req);
+  }
+
+  stopTimer() {
+    var conf = confirm('Anda yakin akan menghentikan Timer?');
+    if (conf == true) {
+      clearInterval(this.#timer);
+      var ket = prompt("Waktu telah dihentikan, silahkan masukan keterangan penghentian waktu...");
+      this.#insertSop(this.#resultTime, ket);
+    }
   }
 }

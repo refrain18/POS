@@ -10,6 +10,7 @@
   }else{
     define('INDEX', true);
     $level = $_SESSION['level'];
+    $ID_CURRENT_USER = $_SESSION['id_user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

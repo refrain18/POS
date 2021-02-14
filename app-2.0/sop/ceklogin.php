@@ -10,6 +10,7 @@
    $jml = mysqli_num_rows($query);
 
    if($jml > 0){
+      $_SESSION['id_user'] = $data['user_id'];
       $_SESSION['username'] = $data['username'];
       $_SESSION['password'] = $data['password'];
       $_SESSION['level'] = $data['level'];
