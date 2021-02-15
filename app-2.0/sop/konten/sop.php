@@ -79,10 +79,61 @@
    <?php while($resQuery = mysqli_fetch_assoc($execQuery2)) ://for($j=0;$j<$i;$j++) : ;?>
       <div>
          <div id="<?php echo "_$resQuery[user_id]";?>">
-            <p>Jenis Perawatan : </p><br>
-            <p><span id="hasilDurasiSop">00:00</span> S/D <span>00:00</span></p><br>
-            <button id="startSopBtn" class="tombol edit" onclick="modalTrigger(); sendTabIdsToCurrentModal(<?php echo $resQuery['user_id'];?>);" type="button">Start</button>
-            <button id="stopSopBtn" class="tombol hapus" onclick="stopSop(<?php echo $resQuery['user_id'];?>);" type="button" disabled>Stop</button>
+            <div class="flex-container">
+               <div class="flex-item" style="align-self: baseline;">
+                  <p>Jenis Perawatan : </p><br>
+                  <p><span id="hasilDurasiSop">00:00</span> S/D <span>00:00</span></p><br>
+                  <button id="startSopBtn" class="tombol edit" onclick="modalTrigger(); sendTabIdsToCurrentModal(<?php echo $resQuery['user_id'];?>);" type="button">Start</button>
+                  <button id="stopSopBtn" class="tombol hapus" onclick="stopSop(<?php echo $resQuery['user_id'];?>);" type="button" disabled>Stop</button>
+               </div>
+               
+               <?php 
+                  // $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
+                  // if($notif == 'tipefile') { echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>"; }
+                  // elseif($notif == 'ukuranfile') { echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>"; }
+                  // elseif($notif == 'tipefilec'){ echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>"; }
+                  // elseif ($notif == 'ukuranfilec') { echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>"; }
+               ?>
+
+            </div>
+            <table class="table">
+               <thead>
+                  <tr>
+                     <th>No</th>
+                     <th>Foto Pegawai</th>
+                     <th>Foto Bukti Struk</th>
+                     <th>Hasil Rundown</th>
+                     <th>Komisi</th>
+                     <th>Keterangan</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <?php
+                     $execQuery_getSop = mysqli_query($con, "SELECT sop.*, pegawai.nama, jenis_perawatan.nama_perawatan, sop.komisi 
+                        FROM sop JOIN pegawai ON sop.pegawai_id = pegawai.pegawai_id JOIN jenis_perawatan ON sop.jp_id = jenis_perawatan.jp_id 
+                        WHERE sop.tanggal = '$current_timestamp' 
+                        ORDER BY id_sop DESC LIMIT 3");
+                     $no = 0;
+                  ?>
+                  <?php if (mysqli_num_rows($execQuery) <= 0 ) : ?>
+                     <?php while($data = mysqli_fetch_array($execQuery_getSop)) : ?>
+                     <tr>
+                        <td><?= ++$no ?></td>
+                        <td><?= $data['foto_pegawai'] ?></td>
+                        <td><?= $data['foto_customer'] ?></td>
+                        <td><?= $data['hasil_rundown'] ?></td>
+                        <td><?= $data['keterangan'] ?></td>
+                        <td><?= $data['komisi'] ?></td>
+                     </tr>
+                     <?php endwhile; ?>
+                  <?php else : ?>
+                     <tr>
+                        <td colspan="6"><center>Belum ada SOP tersimpan pada record hari ini!</center></td>
+                     </tr>
+                  <?php endif; ?>
+               </tbody>
+            </table>
+
          </div>
       </div>
    <?php endwhile;//endfor; ?>

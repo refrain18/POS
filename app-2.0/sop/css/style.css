@@ -608,4 +608,16 @@ input[type=radio]{
     top: 133px;
     left: 1225px;
 
-  }
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-container > .flex-item{
+  width: fit-content;
+  border:1px solid gray;
+  padding:20px 60px; 
+  margin: 0.5em;
+}

@@ -180,11 +180,56 @@ function stopSop(id) {
   dynamicTimerObj[DYNAMIC_OBJ_PROP].stopTimer();
 }
 
+function sopFinishing(id, sopResult) {
+  let newContent, el_target = $(`#${id} .flex-container .flex-item`);
+
+  if (el_target == null) {
+    return false;
+  }
+
+  if (sopResult) {
+    newContent = `
+      <div id="sop-finishing" class="flex-item">
+        <form name="sopForm" id="sop-form" onsubmit="return validateSopForm(this);"  method="" action="" enctype="multipart/form-data">
+          <div class="form-group">
+            <h3>SOP Finishing</h3>
+            <label for="foto_pegawai">Upload foto: </label>
+            <div class="input" style="width: 100%;"><input type="file" id="fp" name="fp" required></div> 
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Selesai" class="tombol edit" style="float: right;">
+          </div>
+        </form>
+      </div>
+    `;
+  } else {
+    newContent = `
+      <div id="sop-finishing" class="flex-item">
+        <form name="sopForm" id="sop-form" onsubmit="return validateSopForm(this);"  method="" action="" enctype="multipart/form-data">
+          <div class="form-group">
+            <h3>SOP Finishing</h3>
+            <label for="foto_pegawai">Upload foto: </label>
+            <div class="input" style="width: 100%;"><input type="file" id="fp" name="fp" required></div> 
+            <label for="ket">Keterangan: </label>
+            <div class="input" style="width: 100%;"><textarea name="keterangan" id="ket" style="width:60%;" cols="2" rows="5" minlength="0" maxlength="100" required></textarea></div> 
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Selesai" class="tombol edit" style="float: right;">
+          </div>
+        </form>
+      </div>
+    `;
+  }
+
+  el_target.after(newContent);
+}
+
 // Timer Class
 class Timer {
   #timer_id;
-  #resultTime;
+  #runningTime;
   #countup_timer;
+  #result
 
   #el_timer;
   #el_startBtn;
@@ -235,55 +280,56 @@ class Timer {
       }
 
       this.#el_timer.text(`${hrs}:${min}:${sec}`);
-      this.#resultTime = `${hrs}:${min}:${sec}`;
+      this.#runningTime = `${hrs}:${min}:${sec}`;
 
-      if (this.#resultTime >= EstimationTime) {
+      if (this.#runningTime >= EstimationTime) {
         clearInterval(this.#countup_timer);
         alert("Waktu telah selesai!");
         this.#el_timer.text('00:00');
-        this.#el_startBtn.prop('disabled', false);
+        this.#el_startBtn.prop('disabled', true);
         this.#el_stopBtn.prop('disabled', true);
+        sopFinishing(this.#timer_id, true); // this is a global func
         //this.#insertSop(this.#resultTime);
       }
     }, 1000);
   }
 
-  #insertSop(resTime, ket = '-') {
-    // Deklarasi Variabel
-    var http = new XMLHttpRequest();
-    var req, res;
+  // #insertSop(resTime, ket = '-') {
+  //   // Deklarasi Variabel
+  //   var http = new XMLHttpRequest();
+  //   var req, res;
 
-    // Mengambil Data yang akan di kirim
-    const REQ_DATA_SET = {
-      completedTime: resTime,
-      keterangan: ket
-    };
+  //   // Mengambil Data yang akan di kirim
+  //   const REQ_DATA_SET = {
+  //     completedTime: resTime,
+  //     keterangan: ket
+  //   };
 
-    // Menyiapkan Request
-    req = `hasilDurasiSop=${REQ_DATA_SET.completedTime}&ket=${REQ_DATA_SET.keterangan}`;
+  //   // Menyiapkan Request
+  //   req = `hasilDurasiSop=${REQ_DATA_SET.completedTime}&ket=${REQ_DATA_SET.keterangan}`;
 
-    // Menjalankan fungsi ketika response siap
-    http.onreadystatechange = function () {
-      // Cek Status response
-      if (this.readyState == 4 && this.status == 200) {
-        // Konversi string response ke format json
-        res = JSON.parse(this.responseText);
+  //   // Menjalankan fungsi ketika response siap
+  //   http.onreadystatechange = function () {
+  //     // Cek Status response
+  //     if (this.readyState == 4 && this.status == 200) {
+  //       // Konversi string response ke format json
+  //       res = JSON.parse(this.responseText);
 
-        if (res.status) {
-          // Menampilkan Alert Sukses
-          alert(res.message);
-          //window.location.href = "?hal=sop";
-        } else {
-          // Error Handling
-          alert("Terjadi kesalahan pada Server. Pesan Error : " + res.message);
-        }
-      }
-    };
-    // Mengirim Request
-    http.open("POST", "konten/sop_insert.php", true);
-    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    http.send(req);
-  }
+  //       if (res.status) {
+  //         // Menampilkan Alert Sukses
+  //         alert(res.message);
+  //         //window.location.href = "?hal=sop";
+  //       } else {
+  //         // Error Handling
+  //         alert("Terjadi kesalahan pada Server. Pesan Error : " + res.message);
+  //       }
+  //     }
+  //   };
+  //   // Mengirim Request
+  //   http.open("POST", "konten/sop_insert.php", true);
+  //   http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  //   http.send(req);
+  // }
 
   stopTimer() {
     let conf = confirm('Anda yakin akan menghentikan Timer?');
@@ -291,8 +337,9 @@ class Timer {
       clearInterval(this.#countup_timer);
       let ket = prompt("Waktu telah dihentikan, silahkan masukan keterangan penghentian waktu...");
       this.#el_timer.text('00:00');
-      this.#el_startBtn.prop('disabled', false);
+      this.#el_startBtn.prop('disabled', true);
       this.#el_stopBtn.prop('disabled', true);
+      sopFinishing(this.#timer_id, false); // this is a global func
       //this.#insertSop(this.#resultTime, ket);
     }
   }
