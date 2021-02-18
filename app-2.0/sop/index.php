@@ -66,6 +66,7 @@
     <script src="js/script.js"></script>
     <script src="js/tabbis.es6.min.js"></script>
     <script src="js/skotchmodal.js"></script>
+    <script src="js/filereader.js"></script>
 </body>
 </html>
 <?php

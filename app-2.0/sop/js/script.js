@@ -126,19 +126,42 @@ function sendTabIdsToCurrentModal(id) {
 function validateSopForm(context) {
   try {
     if (!confirm('Waktu akan dijalankan. Apa anda yakin untuk memulai?')) { return false; }
-    let checkboxArr = context.pilihan_jenis_perawatan,
+
+    // Persiapan konteks form dan var tmp
+    let formSopStarter = context,
+      fileImgPath = context.foto_pegawai,
+      checkboxArr = context.elements['pilihan_jenis_perawatan[]'],
       timeStamp = context.time_stamp.value,
-      // id_user = context.id_user.value,
       id_user = context.modal_user_id.value,
       totalSopTimeEst = context.totalSopTimeEst.value;
+    // id_user = context.id_user.value;
+    let checkArr = [], textCheckboxArr = [], checkboxTexts = '';
 
-    let checkArr = [], dataCheckboxArr = [];
+    // Validasi input file
+    let fileImg = fileImgPath.files;
+    let fileSize = Math.round((fileImg[0].size / 1024));
+    let fileName = fileImg[0].name.length;
+    let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
 
-    //! Validasi inputan file image disini!
+    if (!allowedExtensions.exec(fileImgPath.value)) {
+      alert('Foto yang di input invalid! foto harus bertipe jpg/jpeg/png!');
+      fileImgPath.value = '';
+      return false;
+    } else if (fileSize > 3072) {
+      alert('Foto yang di input invalid! foto maksimal berukuran 3 mb');
+      fileImgPath.value = '';
+      return false;
+    } else if (fileName > 50) {
+      alert('Foto yang di input invalid! nama foto terlalu panjang, maksimal berjumlah 50 karakter');
+      return false;
+    }
 
+    // Validasi input checkbox
     for (let i = 0; i < checkboxArr.length; i++) {
       checkArr.push(checkboxArr[i].checked);
-      dataCheckboxArr.push(checkboxArr[i].value)
+      if (checkboxArr[i].checked) {
+        textCheckboxArr.push(checkboxArr[i].nextElementSibling.textContent.trim());
+      }
     }
 
     if (!checkArr.includes(true)) {
@@ -146,24 +169,90 @@ function validateSopForm(context) {
       return false;
     }
 
+    // Gabungkan text dari checked checkbox dengan string
+    checkboxTexts = textCheckboxArr.join(' & ');
+
+    // Persiapan Object PREFIX Name
     const OBJ_PROP_PREFIX = 'timer',
       SOPS_TAB_ID_PREFIX = '_';
-    const DYNAMIC_OBJ_PROP = OBJ_PROP_PREFIX + id_user,
-      DYNAMIC_SOPS_TAB_ID = SOPS_TAB_ID_PREFIX + id_user;
 
+    // Membuat object dinamis
+    if (typeof SOP_DYNAMIC_DATA == 'undefined') {
+      SOP_DYNAMIC_DATA = {};
+    }
+
+    SOP_DYNAMIC_DATA.idObject = OBJ_PROP_PREFIX + id_user;
+    SOP_DYNAMIC_DATA.idSopsTab = SOPS_TAB_ID_PREFIX + id_user;
+
+    // Membuat object untuk menampung object Time dinamis
     if (typeof dynamicTimerObj == 'undefined') {
       dynamicTimerObj = {};
     }
 
-    dynamicTimerObj[DYNAMIC_OBJ_PROP] = new Timer(DYNAMIC_SOPS_TAB_ID);
-    dynamicTimerObj[DYNAMIC_OBJ_PROP].startTimer(totalSopTimeEst);
+    // Instatiate Object Timer Dinamis
+    dynamicTimerObj[SOP_DYNAMIC_DATA.idObject] = new Timer(SOP_DYNAMIC_DATA.idSopsTab, formSopStarter);
+    dynamicTimerObj[SOP_DYNAMIC_DATA.idObject].startTimer(totalSopTimeEst);
 
-    console.log(dynamicTimerObj);
+    // debug
+    console.log(dynamicTimerObj, textCheckboxArr);
 
-    $('.scotch-open').remove();
-    alert("Form Dikirim! Timer SOP telah dimulai...");
-    $(`#${DYNAMIC_SOPS_TAB_ID} #startSopBtn`).prop('disabled', true);
-    $(`#${DYNAMIC_SOPS_TAB_ID} #stopSopBtn`).prop('disabled', false);
+
+    $('.scotch-open').remove(); // Menghapus modal SOP
+    // Meng-setting ulang button aksi SOP
+    $(`#${SOP_DYNAMIC_DATA.idSopsTab} #startSopBtn`).prop('disabled', true);
+    $(`#${SOP_DYNAMIC_DATA.idSopsTab} #stopSopBtn`).prop('disabled', false);
+
+    // Meng-setting keterangan sop pada tab aktif
+    $(`#${SOP_DYNAMIC_DATA.idSopsTab} #jenisPerawatan`).text(checkboxTexts);
+
+    alert("Timer sop dimulai! selamat bekerja...");
+    return false;
+  } catch (e) {
+    alert('Terjadi kesalahan pada program...\nPesan Error: ' + e);
+    return false;
+  }
+}
+
+function validateSopFinishingForm(id, context) {
+  try {
+    if (!confirm('Konfirmasi Penyelesaian SOP!')) { return false; }
+
+    let el_sopFinishingForm = context[0].children['sopFormFinishing'],
+      el_sopFinishingContainer = context;
+
+
+    // Validasi input file
+    let fileImgPath = el_sopFinishingForm.foto_bukti_struk;
+    let fileImg = fileImgPath.files;
+    let fileSize = Math.round((fileImg[0].size / 1024));
+    let fileName = fileImg[0].name.length;
+    let allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+
+    if (!allowedExtensions.exec(fileImgPath.value)) {
+      alert('Foto yang di input invalid! foto harus bertipe jpg/jpeg/png!');
+      fileImgPath.value = '';
+      return false;
+    } else if (fileSize > 3072) {
+      alert('Foto yang di input invalid! foto maksimal berukuran 3 mb');
+      fileImgPath.value = '';
+      return false;
+    } else if (fileName > 50) {
+      alert('Foto yang di input invalid! nama foto terlalu panjang, maksimal berjumlah 50 karakter');
+      return false;
+    }
+
+    // Persiapan pemanggilan object dinamis
+    const OBJ_PROP_PREFIX = 'timer', OBJ_PROP_SUFFIX = id;
+    const DYNAMIC_OBJ_PROP = OBJ_PROP_PREFIX + OBJ_PROP_SUFFIX;
+
+    dynamicTimerObj[DYNAMIC_OBJ_PROP.replace("_", "")].createFormDataObject(el_sopFinishingForm);
+
+    // Mengahus element form finishing
+    $(el_sopFinishingContainer).remove();
+
+    // debug
+    console.log(id, context);
+    console.log(DYNAMIC_OBJ_PROP);
     return false;
   } catch (e) {
     alert('Terjadi kesalahan pada program...\nPesan Error: ' + e);
@@ -174,6 +263,7 @@ function validateSopForm(context) {
 function stopSop(id) {
   if (!confirm('Waktu SOP sedang berjalan, Apa anda yakin untuk berhenti sekarang?')) { return false; }
 
+  // Persiapan pemanggilan object dinamis
   const OBJ_PROP_PREFIX = 'timer', OBJ_PROP_SUFFIX = id;
   const DYNAMIC_OBJ_PROP = OBJ_PROP_PREFIX + OBJ_PROP_SUFFIX;
 
@@ -183,43 +273,42 @@ function stopSop(id) {
 function sopFinishing(id, sopResult) {
   let newContent, el_target = $(`#${id} .flex-container .flex-item`);
 
+  // Meng-setting keterangan sop pada tab aktif
+  $(`#${id} #jenisPerawatan`).text('');
+
   if (el_target == null) {
     return false;
   }
 
   if (sopResult) {
     newContent = `
-      <div id="sop-finishing" class="flex-item">
-        <form name="sopForm" id="sop-form" onsubmit="return validateSopForm(this);"  method="" action="" enctype="multipart/form-data">
-          <div class="form-group">
-            <h3>SOP Finishing</h3>
-            <label for="foto_pegawai">Upload foto: </label>
-            <div class="input" style="width: 100%;"><input type="file" id="fp" name="fp" required></div> 
-          </div>
-          <div class="form-group">
-            <input type="submit" value="Selesai" class="tombol edit" style="float: right;">
-          </div>
-        </form>
-      </div>
+      <label for="foto_bukti_struk">Upload foto: </label>
+      <div class="input" style="width: 100%;"><input type="file" id="foto_bukti_struk" name="foto_bukti_struk" required></div> 
     `;
   } else {
     newContent = `
-      <div id="sop-finishing" class="flex-item">
-        <form name="sopForm" id="sop-form" onsubmit="return validateSopForm(this);"  method="" action="" enctype="multipart/form-data">
-          <div class="form-group">
-            <h3>SOP Finishing</h3>
-            <label for="foto_pegawai">Upload foto: </label>
-            <div class="input" style="width: 100%;"><input type="file" id="fp" name="fp" required></div> 
-            <label for="ket">Keterangan: </label>
-            <div class="input" style="width: 100%;"><textarea name="keterangan" id="ket" style="width:60%;" cols="2" rows="5" minlength="0" maxlength="100" required></textarea></div> 
-          </div>
-          <div class="form-group">
-            <input type="submit" value="Selesai" class="tombol edit" style="float: right;">
-          </div>
-        </form>
-      </div>
+      <label for="foto_bukti_struk">Upload foto: </label>
+      <div class="input" style="width: 100%;"><input type="file" id="foto_bukti_struk" name="foto_bukti_struk" required></div> 
+      <label for="ket">Keterangan: </label>
+      <div class="input" style="width: 100%;">
+        <textarea name="keterangan" id="ket" style="width:60%;" cols="2" rows="5" minlength="0" maxlength="100" required></textarea>
+      </div> 
     `;
   }
+
+  newContent = `
+    <div id="sop-finishing" class="flex-item">
+      <form name="sopFormFinishing" id="sop-form-finishing" onsubmit="return validateSopFinishingForm($(this).parent().parent().parent().attr('id'), $(this).parent());">
+        <div class="form-group">
+          <h3>Penyelesaian SOP</h3>
+          ${newContent}
+        </div>  
+        <div class="form-group">
+          <input type="submit" value="Selesai" class="tombol edit" style="float: right;">
+        </div>
+      </form>
+    </div>
+  `;
 
   el_target.after(newContent);
 }
@@ -229,30 +318,36 @@ class Timer {
   #timer_id;
   #runningTime;
   #countup_timer;
-  #result
+  #formSopStarter;
+  #formDataObj;
 
   #el_timer;
   #el_startBtn;
   #el_stopBtn;
 
-  constructor(timer_id) {
+  constructor(timer_id, context) {
     this.#timer_id = timer_id;
 
     if (this.#timer_id == null) {
       alert('Error On Timer Class: ID Tab Sop tidak ditemukan!');
     } else {
-      this.#el_timer = $(`#${this.#timer_id} #hasilDurasiSop`);
+      this.#el_timer = $(`#${this.#timer_id} #waktuSop`);
       this.#el_startBtn = $(`#${this.#timer_id} #startSopBtn`);
       this.#el_stopBtn = $(`#${this.#timer_id} #stopSopBtn`);
+      this.#formSopStarter = context;
 
       if (this.#el_timer == null) { alert('Error On Timer Class: ID Timer tidak ditemukan!'); }
       else if (this.#el_startBtn == null) { alert('Error On Timer Class: ID Start Timer Button tidak ditemukan!'); }
       else if (this.#el_stopBtn == null) { alert('Error On Timer Class: ID Stop Timer Button tidak ditemukan!'); }
+      else if (this.#formSopStarter == null) { alert('Error On Timer Class: ID/Name Form Sop Starter tidak ditemukan!'); }
     }
   }
 
   startTimer(EstimationTime, starterTime = '00:00:00') {
     let sec = 0, min = 0, hrs = 0;
+
+    // Set element target durasi
+    $(this.#el_timer[0].children['targetDurasiSop']).text(EstimationTime);
 
     this.#countup_timer = setInterval(() => {
       sec = parseInt(sec);
@@ -279,68 +374,182 @@ class Timer {
         hrs = '0' + hrs;
       }
 
-      this.#el_timer.text(`${hrs}:${min}:${sec}`);
+      $(this.#el_timer[0].children['durasiSopBerjalan']).text(`${hrs}:${min}:${sec}`);
       this.#runningTime = `${hrs}:${min}:${sec}`;
 
       if (this.#runningTime >= EstimationTime) {
         clearInterval(this.#countup_timer);
         alert("Waktu telah selesai!");
-        this.#el_timer.text('00:00');
+        $(this.#el_timer[0].children['durasiSopBerjalan']).text('00:00');
+        $(this.#el_timer[0].children['targetDurasiSop']).text('00:00');
         this.#el_startBtn.prop('disabled', true);
         this.#el_stopBtn.prop('disabled', true);
         sopFinishing(this.#timer_id, true); // this is a global func
-        //this.#insertSop(this.#resultTime);
       }
     }, 1000);
   }
 
-  // #insertSop(resTime, ket = '-') {
-  //   // Deklarasi Variabel
-  //   var http = new XMLHttpRequest();
-  //   var req, res;
+  createFormDataObject(secondForm) {
+    this.#formDataObj = new FormData(this.#formSopStarter);
+    this.#formDataObj.append('sop_time_result', this.#runningTime);
+    if (secondForm == null) {
+      alert('Error On Timer Class: method createFormDataObj bermasalah!');
+    } else {
+      let secondFormTmpObj = new FormData(secondForm);
+      for (var pair of secondFormTmpObj.entries()) {
+        this.#formDataObj.append(pair[0], pair[1]);
+      }
+      this.#insertSop(this.#formDataObj);
+    }
+  }
 
-  //   // Mengambil Data yang akan di kirim
-  //   const REQ_DATA_SET = {
-  //     completedTime: resTime,
-  //     keterangan: ket
-  //   };
+  #insertSop(formDataObj) {
+    let idloadTable = this.#timer_id.replace("_", "");
 
-  //   // Menyiapkan Request
-  //   req = `hasilDurasiSop=${REQ_DATA_SET.completedTime}&ket=${REQ_DATA_SET.keterangan}`;
+    $.ajax({
+      url: "request/sop_insert.php",
+      method: "POST",
+      data: formDataObj,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: (res) => {
+        if (res.status) {
+          loadSopTables([idloadTable]); // global function
+          alert(res.message);
 
-  //   // Menjalankan fungsi ketika response siap
-  //   http.onreadystatechange = function () {
-  //     // Cek Status response
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       // Konversi string response ke format json
-  //       res = JSON.parse(this.responseText);
+          this.#el_startBtn.prop('disabled', false);
 
-  //       if (res.status) {
-  //         // Menampilkan Alert Sukses
-  //         alert(res.message);
-  //         //window.location.href = "?hal=sop";
-  //       } else {
-  //         // Error Handling
-  //         alert("Terjadi kesalahan pada Server. Pesan Error : " + res.message);
-  //       }
-  //     }
-  //   };
-  //   // Mengirim Request
-  //   http.open("POST", "konten/sop_insert.php", true);
-  //   http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  //   http.send(req);
-  // }
+          // debug
+          console.log(res.data);
+        }
+      },
+      error: function (res) {
+        alert(`Terjadi kesalahan pada server!\n${res.message}`);
+      }
+    });
+  }
 
   stopTimer() {
     let conf = confirm('Anda yakin akan menghentikan Timer?');
     if (conf == true) {
       clearInterval(this.#countup_timer);
-      let ket = prompt("Waktu telah dihentikan, silahkan masukan keterangan penghentian waktu...");
-      this.#el_timer.text('00:00');
+      $(this.#el_timer[0].children['durasiSopBerjalan']).text('00:00');
+      $(this.#el_timer[0].children['targetDurasiSop']).text('00:00');
       this.#el_startBtn.prop('disabled', true);
       this.#el_stopBtn.prop('disabled', true);
       sopFinishing(this.#timer_id, false); // this is a global func
-      //this.#insertSop(this.#resultTime, ket);
     }
   }
 }
+
+function loadSopTables(id_users) {
+  // debug
+  console.log(`params - ${id_users.join(', ')}`);
+
+  for (let i = 0; i < id_users.length; i++) {
+    let url = "request/load_sop_table.php";
+    let req = `id_user=${id_users[i]}`;
+
+    $.ajax({
+      url: url,
+      method: "GET",
+      data: req,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      cache: false,
+      success: function (res) {
+        if (res.status) {
+          let el = $(`#_${id_users[i]} #sopTable`);
+          el.html(res.html);
+        }
+      },
+      error: function (res) {
+        alert(`Terjadi kesalahan pada server!\n${res.message}`);
+      }
+    });
+  }
+
+  return 0;
+
+  // let prefix = 'sopTable';
+
+  // if (typeof sopTableContentObj == 'undefined') {
+  //   sopTableContentObj = {};
+  // }
+
+  // sopTableContentObj[prefix + id_user] = function (id) {
+  //   // $.ajaxSetup({ async: false });
+  //   let url = "request/load_sop_table.php";
+  //   let req = `id_user=${id}`;
+  //   return $.ajax({
+  //     // async: false,
+  //     url: url,
+  //     method: "GET",
+  //     data: req,
+  //     processData: false,
+  //     contentType: false,
+  //     dataType: "json",
+  //     cache: false,
+  //     success: function (res) {
+  //       if (res.status) {
+  //         let el = $(`#_${id} #sopTable`);
+  //         el.html(res.html);
+  //         console.log(el, res.html); // debug
+
+  //       }
+  //     },
+  //     error: function (res) {
+  //       alert(`Terjadi kesalahan pada server!\n${res.message}`);
+  //     }
+  //   });
+  // }
+
+  // sopTableContentObj[prefix + id_user](id_user);
+  // $.ajaxSetup({ async: true });
+}
+
+// function readURL(input) {
+//   if (input.files && input.files[0]) {
+//     var reader = new FileReader();
+
+//     reader.onload = function (e) {
+//       $('#imgPreview').attr('src', e.target.result);
+//       $('#note').text(e.target.result);
+//       console.log(e);
+//     }
+
+//     reader.readAsDataURL(input.files[0]); // convert to base64 string
+//   }
+// }
+
+// $("#fp").change(function () {
+//   readURL(this);
+//   form1 = $('form[name="myForm"]')[0];
+//   form2 = $('form[name="myForm2"]')[0];
+//   let formData1 = new FormData(form1);
+//   let formData2 = new FormData(form2);
+//   console.log(form1);
+//   console.log(formData1);
+//   for (var pair of formData2.entries()) {
+//     formData1.append(pair[0], pair[1]);
+//     // console.log(pair[0] + ', ' + pair[1]);
+//   }
+//   $.ajax({
+//     url: "request/test-file-upload.php",
+//     method: "POST",
+//     data: formData1,
+//     processData: false,
+//     contentType: false,
+//     dataType: "json",
+//     success: function (res) {
+//       if (res.status) {
+//         console.log(res.data);
+//       }
+//     },
+//     error: function () {
+//       alert("Terjadi kesalahan!");
+//     }
+//   });
+// });

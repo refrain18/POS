@@ -8,6 +8,11 @@
   $pegawai_id = $_POST['pegawai_id'];
   $jp_id = $_POST['jp_id'];
 
+
+  var_dump($_FILES['fc']);
+  die();
+
+
   if(!empty($_FILES["fp"]["name"])){
     $f_pegawai = $_FILES["fp"]["name"];
     $tipefile = $_FILES["fp"]["type"];

@@ -24,7 +24,7 @@ function validateForm() {
 }
 </script> -->
 <h2 class="judul">Tambah SOP Salon Mumtaza</h2>
-<form name="myForm" onsubmit="return confirm('Waktu akan dijalankan. Apa anda yakin untuk memulai?');"  method="post" action="?hal=sop_timer" enctype="multipart/form-data">
+<form name="myForm" id="meForm" onsubmit="return confirm('Waktu akan dijalankan. Apa anda yakin untuk memulai?');"  method="post" action="?hal=sop_timer" enctype="multipart/form-data">
 
 <?php
   
@@ -90,3 +90,12 @@ function validateForm() {
       <input type="submit" value="Start" class="tombol start">
   </div>
 </form>
+
+<form name="myForm2">
+  <input type="email" name="emailku"><br>
+  <input type="file" name="fileku">
+</form>
+
+<p id="note">test</p>
+
+<img src="#" alt="" id="imgPreview">
