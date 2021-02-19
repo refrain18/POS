@@ -60,7 +60,7 @@
 <h3 class="judul">Anda login sebagai <?= ucfirst($level) ?> </h3>
 
 <?php
-   $query_getUsers = "SELECT pegawai_id as user_id, nama as username FROM pegawai WHERE status = 'on'";
+   $query_getUsers = "SELECT pegawai_id, pegawai.nama FROM pegawai JOIN user ON pegawai.user_id = user.user_id WHERE user.level = 'clusterx' AND user.status = 'on'";
    // $query_getUsers = "SELECT user_id, username FROM user WHERE level IN ('owner', 'clusterx')";
    $execQuery_getUser1 = mysqli_query($con, $query_getUsers) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
    $execQuery_getUser2 = mysqli_query($con, $query_getUsers) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
@@ -68,7 +68,7 @@
 ?>
 <div data-tabs>
    <?php while($resQuery = mysqli_fetch_assoc($execQuery_getUser1)) : ;?>
-      <div><?php echo ucfirst($resQuery['username']);//$i++; ?></div>
+      <div><?php echo ucfirst($resQuery['nama']);//$i++; ?></div>
    <?php endwhile; ?>
 </div>
 
@@ -77,15 +77,15 @@
       $idUserPanesArr = array();
    ?>
    <?php while($resQuery = mysqli_fetch_assoc($execQuery_getUser2)) ://for($j=0;$j<$i;$j++) : ;?>
-      <?php array_push($idUserPanesArr, $resQuery['user_id']) ;?>
+      <?php array_push($idUserPanesArr, $resQuery['pegawai_id']) ;?>
       <div>
-         <div id="<?php echo "_$resQuery[user_id]";?>">
+         <div id="<?php echo "_$resQuery[pegawai_id]";?>">
             <div class="flex-container">
                <div class="flex-item" style="align-self: baseline;">
                   <p>Jenis Perawatan : <span id="jenisPerawatan"></span></p><br>
                   <p id="waktuSop"><span id="durasiSopBerjalan">00:00</span> S/D <span id="targetDurasiSop">00:00</span></p><br>
-                  <button id="startSopBtn" class="tombol edit" onclick="modalTrigger(); sendTabIdsToCurrentModal(<?php echo $resQuery['user_id'];?>);" type="button">Start</button>
-                  <button id="stopSopBtn" class="tombol hapus" onclick="stopSop(<?php echo $resQuery['user_id'];?>);" type="button" disabled>Stop</button>
+                  <button id="startSopBtn" class="tombol edit" onclick="modalTrigger(); sendTabIdsToCurrentModal(<?php echo $resQuery['pegawai_id'];?>);" type="button">Start</button>
+                  <button id="stopSopBtn" class="tombol hapus" onclick="stopSop(<?php echo $resQuery['pegawai_id'];?>);" type="button" disabled>Stop</button>
                </div>
             </div>
             <table class="table">

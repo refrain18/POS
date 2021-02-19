@@ -23,7 +23,7 @@
    </thead>
    <tbody>
 <?php
-   $query = mysqli_query($con, "SELECT * FROM pegawai ORDER BY pegawai_id ASC");
+   $query = mysqli_query($con, "SELECT pegawai.*, user.level, user.status FROM pegawai JOIN user ON pegawai.user_id = user.user_id ORDER BY pegawai_id ASC");
    $no = 0;
    while($data = mysqli_fetch_array($query)){
       $no++;
@@ -33,7 +33,7 @@
          <td><?= $data['nama'] ?></td>
          <td><?= $data['tmpt_lahir'] ?></td>
          <td><?= $data['tgl_lahir'] ?></td>
-         <td><?= $data['jabatan'] ?></td>
+         <td><?= $data['level'] ?></td>
          <td><?= $data['no_hp'] ?></td>
          <td><?= $data['alamat'] ?></td>
          <td><?= $data['tanggal_bergabung'] ?></td>

@@ -4,29 +4,44 @@
    $nama = $_POST["nama"];
    $tmp_lahir = $_POST["tmpt_lahir"];
    $tgl_lahir = $_POST["tgl_lahir"];
-   $jabatan = $_POST["jabatan"];
+   $level = $_POST["level"];
    $no_hp = $_POST["no_hp"];
+   $email = $_POST["email"];
    $alamat = $_POST["alamat"];
-   $tgl_bergabung = $_POST["join"];
+   $tgl_bergabung = $_POST["date_joined"];
+   $username = $_POST["username"];
+   $pass = $_POST["password"];
    $status = $_POST["status"];
+
+   $queryPegawai = "INSERT INTO user SET
+      level = '$level',
+      username = '$username',
+      email = '$email',
+      password = '$pass',
+      status = '$status'"
+   ; 
    
+   if (mysqli_query($con, $queryPegawai)) {
+      $last_id = mysqli_insert_id($con);
+      
 
-   $query = mysqli_query($con, "INSERT INTO pegawai SET
-      nama = '$nama',
-      tmpt_lahir = '$tmp_lahir',
-      tgl_lahir = '$tgl_lahir',
-      jabatan = '$jabatan',
-      no_hp = '$no_hp',
-      alamat = '$alamat',
-      tanggal_bergabung = '$tgl_bergabung',
-      pegawai.status = '$status'
-   ");
+      $execLastQuery = mysqli_query($con, "INSERT INTO pegawai SET
+         user_id = '$last_id',
+         nama = '$nama',
+         tmpt_lahir = '$tmp_lahir',
+         tgl_lahir = '$tgl_lahir',
+         no_hp = '$no_hp',
+         alamat = '$alamat',
+         tanggal_bergabung = '$tgl_bergabung'"
+      );
 
-   if($query){
-      echo "Data berhasil disimpan!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=data_pegawai'>";
-   }else{
-      echo "Tidak dapat menyimpan data!<br>";
-      echo mysqli_error($con);
-   }
+      if ($execLastQuery) {
+         echo "Data berhasil disimpan!";
+         echo "<meta http-equiv='refresh' content='1; url=?hal=data_pegawai'>";
+         die();
+      }
+   } 
+
+   echo "Tidak dapat menyimpan data!<br>";
+   echo mysqli_error($con);
 ?>

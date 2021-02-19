@@ -22,7 +22,7 @@
     $execQuery_getSop = mysqli_query($con, "SELECT sop.*, pegawai.nama, jenis_perawatan.nama_perawatan, sop.komisi 
       FROM sop JOIN pegawai ON sop.pegawai_id = pegawai.pegawai_id JOIN jenis_perawatan ON sop.jp_id = jenis_perawatan.jp_id 
       WHERE sop.tanggal = '$current_timestamp' AND sop.pegawai_id = '$id_user' 
-      ORDER BY id_sop DESC LIMIT 5"
+      ORDER BY id_sop DESC"
     );
 
 		if($execQuery_getSop){

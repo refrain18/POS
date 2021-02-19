@@ -52,11 +52,11 @@
    <tbody>
 <?php
    $query = "SELECT 
-      sop.id_sop, jp.nama_perawatan, sop.foto_pegawai as img_pgw, sop.foto_customer as img_struk, sop.hasil_rundown, sop.keterangan, pegawai.nama
+      sop.id_sop, jp.nama_perawatan, sop.foto_pegawai as img_pgw, sop.foto_struk as img_struk, sop.hasil_rundown, sop.keterangan, pegawai.nama
       FROM sop JOIN pegawai ON pegawai.pegawai_id = sop.pegawai_id JOIN jenis_perawatan jp ON jp.jp_id = sop.jp_id 
       WHERE sop.pegawai_id = '$id' AND sop.tanggal = '$tgl';
    ";
-   $execQuery = mysqli_query($con, $query);
+   $execQuery = mysqli_query($con, $query) OR die('Kesalahan pada query: '.mysqli_error($con));
    $no = 0;
    while($data = mysqli_fetch_assoc($execQuery)){
    $no++;

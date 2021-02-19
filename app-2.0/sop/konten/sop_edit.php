@@ -7,7 +7,7 @@
     echo "<meta http-equiv='refresh' content='1; url=?hal=rekap_harian'>";
   }
 
-  $query = "SELECT pegawai_id, jp_id, foto_pegawai, foto_customer, tanggal FROM sop WHERE id_sop = '$id'";
+  $query = "SELECT pegawai_id, jp_id, foto_pegawai, foto_struk, tanggal FROM sop WHERE id_sop = '$id'";
   $execQuery = mysqli_query($con, $query) OR die("Terjadi kesalahan pada server: ".mysqli_error($con));
   
   if (mysqli_num_rows($execQuery) <= 0) {
@@ -18,7 +18,7 @@
   $pegawaiId = $resQuery['pegawai_id'];
   $jenisPelayananId = $resQuery['jp_id'];
   $fotoPegawai = $resQuery['foto_pegawai'];
-  $fotoStruk = $resQuery['foto_customer'];
+  $fotoStruk = $resQuery['foto_struk'];
   $tgl = $resQuery['tanggal'];
 ?>
 <!-- <script>
@@ -102,7 +102,7 @@ function validateForm() {
     <div class="input"><input type="file" id="fp" name="fp" required></div> 
   </div>
   <div class="form-group">
-    <label for="foto_customer">Foto Bukti Struk</label>   
+    <label for="fs">Foto Bukti Struk</label>   
     <div class="input"><input type="file" id="fs" name="fs" required></div> 
   </div>
   <div class="form-group">
