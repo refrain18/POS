@@ -9,8 +9,9 @@
      echo "<meta http-equiv='refresh' content='2; url=login.php'>";
   }else{
     define('INDEX', true);
-    $level = $_SESSION['level'];
+    $level = preg_replace("/\s+/", "", $_SESSION['level']); // Menghapus spasi, tabs atau new line pada string
     $ID_CURRENT_USER = $_SESSION['id_user'];
+    // $ID_PEGAWAI_CURRENT_USER = $_SESSION['id_pegawai'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

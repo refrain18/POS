@@ -5,12 +5,16 @@
    $username = $_POST['username'];
    $password = md5($_POST['password']);
 
-   $query = mysqli_query($con, "SELECT * FROM user WHERE username='$username' AND password='$password'");
+   $query = mysqli_query($con, "SELECT user.*, pegawai.pegawai_id 
+      FROM user JOIN pegawai ON user.user_id = pegawai.user_id 
+      WHERE user.username='$username' AND user.password='$password'"
+   );
    $data = mysqli_fetch_array($query);
    $jml = mysqli_num_rows($query);
 
    if($jml > 0){
       $_SESSION['id_user'] = $data['user_id'];
+      // $_SESSION['id_pegawai'] = $data['pegawai_id'];
       $_SESSION['username'] = $data['username'];
       $_SESSION['password'] = $data['password'];
       $_SESSION['level'] = $data['level'];

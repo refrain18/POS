@@ -1,6 +1,10 @@
 <?php
    if(!defined('INDEX')) die("");
+   
+   // Get current user level
+   $level = $_SESSION['level'];
 
+   // Halaman yang dapat diakses
    $halamanArr = array(
       "sop","rekap_harian","rekap_bulanan",
       "sop_tambah","sop_timer","sop_insert","sop_lihat","sop_edit","sop_update","sop_hapus","sop_rundown",
@@ -8,6 +12,14 @@
       "rb_detail","rb_cetak_detail"
    );
 
+   if ($level != 'owner') {
+      // Halaman yang bisa di akses user selain Owner
+      $halamanArr = array(
+         "sop"
+      );
+   }
+
+   // Halaman yang sedang di maintenance
    $maintenanceArr = array(
       "rekap_bulanan", "sop_rundown","sop_lihat", 
       "rh_cetak", "rh_cetak_detail", "rb_cetak", 

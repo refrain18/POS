@@ -60,7 +60,12 @@
 <h3 class="judul">Anda login sebagai <?= ucfirst($level) ?> </h3>
 
 <?php
-   $query_getUsers = "SELECT pegawai_id, pegawai.nama FROM pegawai JOIN user ON pegawai.user_id = user.user_id WHERE user.level = 'clusterx' AND user.status = 'on'";
+   // Penambahan Where
+   $where = "";
+   if ($level == 'clusterx') {
+      $where = "AND user.user_id = '$ID_CURRENT_USER'";
+   }
+   $query_getUsers = "SELECT pegawai_id, pegawai.nama FROM pegawai JOIN user ON pegawai.user_id = user.user_id WHERE user.level = 'clusterx' AND user.status = 'on' $where";
    // $query_getUsers = "SELECT user_id, username FROM user WHERE level IN ('owner', 'clusterx')";
    $execQuery_getUser1 = mysqli_query($con, $query_getUsers) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
    $execQuery_getUser2 = mysqli_query($con, $query_getUsers) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));

@@ -63,7 +63,7 @@ function validateForm(context) {
    </div>
    <div class="form-group">
       <label for="email">Email</label>   
-      <div class="input"><input type="email" id="email" name="email" required></div> 
+      <div class="input"><input type="email" id="email" name="email" maxlength="20" required></div> 
    </div>
    <div class="form-group">
       <label for="alamat">Alamat</label>   
@@ -81,8 +81,7 @@ function validateForm(context) {
       <label for="pass">Password</label>   
       <div class="input"><input type="password" id="pass" name="password" minlength="8" maxlength="16" required></div> 
    </div>
-   <div class="form-group">
-    </br>
+   <div class="form-group"></br>
         <label>Status</label>
         <span>
               <input type="radio" name="status" value="on"  required/>On

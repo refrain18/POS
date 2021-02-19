@@ -1,7 +1,7 @@
 <?php
    if(!defined('INDEX')) die("");
 
-   $query = mysqli_query($con, "DELETE FROM pegawai WHERE pegawai_id='$_GET[pegawai_id]'");
+   $query = mysqli_query($con, "DELETE FROM user WHERE user_id='$_GET[user_id]'") or die('Terjadi kesalahan query: '.mysqli_error($con));
 
    if($query){
       echo "Data berhasil dihapus!";

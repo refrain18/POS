@@ -10,7 +10,7 @@
    $alamat = $_POST["alamat"];
    $tgl_bergabung = $_POST["date_joined"];
    $username = $_POST["username"];
-   $pass = $_POST["password"];
+   $pass = md5($_POST["password"]);
    $status = $_POST["status"];
 
    $queryPegawai = "INSERT INTO user SET

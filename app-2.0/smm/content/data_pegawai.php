@@ -39,8 +39,8 @@
          <td><?= $data['tanggal_bergabung'] ?></td>
          <td><?= $data['status'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=edit_pg&pegawai_id=<?= $data['pegawai_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=hapus_pg&pegawai_id=<?= $data['pegawai_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?hal=edit_pg&user_id=<?= $data['user_id'] ?>"> Edit </a>
+            <a class="tombol hapus" onclick="confirm('Aksi ini akan menghapus data secara permanen?')" href="?hal=hapus_pg&user_id=<?= $data['user_id'] ?>"> Hapus </a>
          </td>
      </tr>
 <?php
