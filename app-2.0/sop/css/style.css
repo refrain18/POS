@@ -4,10 +4,12 @@
     /* box-sizing: border-box; */
 }
 
-body {
+html, body {
     font-family:'Coustard', serif;
-    overflow-x: hidden;
     background: rgb(40, 143, 120);
+    position: relative;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* navigasi */
@@ -124,10 +126,10 @@ nav ul li a:hover{
         flex-direction: column;
         align-items: center;
         background-color: rgb(40, 143, 120);
-        z-index: -1;
         transform: translateX(100%);
         transition: all 1s;
         opacity: 0;
+        margin-top: 50px;
     }
 
     nav ul.slide {
@@ -470,11 +472,21 @@ input[type=submit] {
   background: #222;
 } */
 section.main{
-  flex: 80%;
   background: #fff;
-  min-height: 530px;
+  min-height: 100vh;
   padding: 15px 20px;
 } 
+
+section.main .scrollable-wrapper {
+  height: 100vh;
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+section.main .scrollable-card-content {
+  overflow-x: scroll;
+}
+
 footer{
   background: rgb(93, 116, 111);
   cursor: pointer;;

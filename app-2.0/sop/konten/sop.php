@@ -84,7 +84,7 @@
    <?php while($resQuery = mysqli_fetch_assoc($execQuery_getUser2)) ://for($j=0;$j<$i;$j++) : ;?>
       <?php array_push($idUserPanesArr, $resQuery['pegawai_id']) ;?>
       <div>
-         <div id="<?php echo "_$resQuery[pegawai_id]";?>">
+         <div class="scrollable-card-content" id="<?php echo "_$resQuery[pegawai_id]";?>">
             <div class="flex-container">
                <div class="flex-item" style="align-self: baseline;">
                   <p>Jenis Perawatan : <span id="jenisPerawatan"></span></p><br>
