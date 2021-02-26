@@ -430,6 +430,17 @@ section.main .scrollable-wrapper {
   overflow-y: scroll;
 }
 
+/* Menghilangkan scrollbar pada Chrome, Safari and Opera */
+section.main .scrollable-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Menghilangkan scrollbar pada IE, Edge and Firefox */
+section.main .scrollable-wrapper {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 footer{
   background: rgb(93, 116, 111);
   cursor: pointer;;

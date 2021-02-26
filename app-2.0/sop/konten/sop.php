@@ -31,7 +31,10 @@
       </div>
       <div class="form-group">
          <label for="pilih_jk">Jenis Perawatan: </label>
-         <div class="input-checkbox">
+         <div 
+            class="input-checkbox"
+            style="height: 100px; overflow-y: scroll;"
+         >
             <?php while($resQueryInLoop = mysqli_fetch_assoc($execQuery)) : ?>
                <span>
                   <input 
