@@ -46,7 +46,15 @@ nav ul li a:hover{
     color:  rgb(241, 217, 166);;
 }
 
+/* Navigasi untuk user selain owner */
+nav ul#not-owner-nav {
+  justify-content:flex-end;
 
+}
+
+nav ul#not-owner-nav li {
+  margin-right: 20px;
+}
 
 /* Hamburger menu */
 .menu-toggle {
@@ -135,6 +143,15 @@ nav ul li a:hover{
     nav ul.slide {
         opacity: 1;
         transform: translateX(0);
+    }
+    
+    /* Navigasi untuk user selain owner */
+    nav ul#not-owner-nav {
+      justify-content:center;
+    }
+
+    nav ul#not-owner-nav li {
+      margin-bottom: 20px;
     }
 }
 

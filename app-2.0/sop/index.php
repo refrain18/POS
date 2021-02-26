@@ -23,7 +23,7 @@
           }
       }
   */
-  
+
   if (!isset($_SESSION['sop_sessionArr']) || empty($_SESSION['sop_sessionArr']) ) {
     echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
     echo "<meta http-equiv='refresh' content='2; url=login.php'>";
@@ -54,9 +54,8 @@
         <div class="logo">
             <h4>SOP Salon Mumtaza</h4>
         </div>
-
-        <ul <?php echo $level != 'owner' ? "style='justify-content:flex-end;'" : "" ;?>>
-            <li class="dropbtn" <?php echo $level != 'owner' ? "style='margin-right:20px;'" : "" ;?>><a href="?hal=sop">Home</a></li>
+        <ul <?php echo $level != 'owner' ? 'id="not-owner-nav"' : '';?>>
+            <li class="dropbtn"><a href="?hal=sop">Home</a></li>
             <?php if($level == 'owner') : ?>
                 <li class="dropbtn1"><a href="?hal=rekap_harian">Rekap SOP Harian</a></li>
                 <li class="dropbtn2"><a href="?hal=rekap_bulanan">Rekap SOP Bulanan</a></li>

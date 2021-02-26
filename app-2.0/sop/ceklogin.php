@@ -7,7 +7,7 @@
 
    $query = mysqli_query($con, "SELECT user.*, pegawai.pegawai_id 
       FROM user LEFT JOIN pegawai ON user.user_id = pegawai.user_id 
-      WHERE (user.username='$username' AND user.password='$password') AND user.status = 'on'"
+      WHERE (user.username='$username' AND user.password='$password') AND (user.level != 'sdm' AND user.level != 'kasir') AND user.status = 'on'"
    );
    $data = mysqli_fetch_array($query);
    $jml = mysqli_num_rows($query);
