@@ -3,15 +3,34 @@
   ob_start();
   
   include "lib/config.php";
-
-  if(empty($_SESSION['username']) or empty($_SESSION['password'])){
-     echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
-     echo "<meta http-equiv='refresh' content='2; url=login.php'>";
-  }else{
+  
+  /*
+    if(empty($_SESSION['username']) or empty($_SESSION['password'])){
+       echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
+       echo "<meta http-equiv='refresh' content='2; url=login.php'>";
+    }else{
+      if (isset($_SESSION['id_logArr']) && !empty($_SESSION['id_logArr'])) {
+          // Cek jika sudah login melalui sop middleware(ceklogin)
+          if(in_array('sop',$_SESSION['id_logArr'])){
+              define('INDEX', true);
+              $level = preg_replace("/\s+/", "", $_SESSION['level']); // Menghapus spasi, tabs atau new line pada string
+              $ID_CURRENT_USER = $_SESSION['id_user'];
+              // $ID_PEGAWAI_CURRENT_USER = $_SESSION['id_pegawai'];
+          } else {
+              echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
+              echo "<meta http-equiv='refresh' content='2; url=login.php'>";
+              die();
+          }
+      }
+  */
+  
+  if (!isset($_SESSION['sop_sessionArr']) || empty($_SESSION['sop_sessionArr']) ) {
+    echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
+    echo "<meta http-equiv='refresh' content='2; url=login.php'>";
+  } else {
     define('INDEX', true);
-    $level = preg_replace("/\s+/", "", $_SESSION['level']); // Menghapus spasi, tabs atau new line pada string
-    $ID_CURRENT_USER = $_SESSION['id_user'];
-    // $ID_PEGAWAI_CURRENT_USER = $_SESSION['id_pegawai'];
+    $level = preg_replace("/\s+/", "", $_SESSION['sop_sessionArr']['level']); // Menghapus spasi, tabs atau new line pada string
+    $ID_CURRENT_USER = $_SESSION['sop_sessionArr']['id_user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

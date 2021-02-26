@@ -3,13 +3,31 @@
   ob_start();
   
   include "library/config.php";
+  
+  /*
+    if(empty($_SESSION['username']) or empty($_SESSION['password'])){
+       echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
+       echo "<meta http-equiv='refresh' content='2; url=login.php'>";
+    }else{
+      if (isset($_SESSION['id_logArr']) && !empty($_SESSION['id_logArr'])) {
+          // Cek jika sudah login melalui smm middleware(ceklogin)
+          if(in_array('smm',$_SESSION['id_logArr'])){
+              define('INDEX', true);
+              $level = $_SESSION['level'];
+          } else {
+              echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
+              echo "<meta http-equiv='refresh' content='2; url=login.php'>";
+              die();
+          }
+      }
+  */
 
-  if(empty($_SESSION['username']) or empty($_SESSION['password'])){
-     echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
-     echo "<meta http-equiv='refresh' content='2; url=login.php'>";
-  }else{
+  if (!isset($_SESSION['smm_sessionArr']) || empty($_SESSION['smm_sessionArr']) ) {
+    echo "<p align='center'> Anda harus login terlebih dahulu!</p>";
+    echo "<meta http-equiv='refresh' content='2; url=login.php'>";
+  } else {
     define('INDEX', true);
-    $level = $_SESSION['level'];
+    $level = $_SESSION['smm_sessionArr']['level'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

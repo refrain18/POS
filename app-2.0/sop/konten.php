@@ -1,9 +1,6 @@
 <?php
    if(!defined('INDEX')) die("");
    
-   // Get current user level
-   $level = $_SESSION['level'];
-
    // Halaman yang dapat diakses
    $halamanArr = array(
       "sop","rekap_harian","rekap_bulanan",

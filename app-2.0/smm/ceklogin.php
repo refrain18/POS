@@ -10,9 +10,11 @@
    $jml = mysqli_num_rows($query);
 
    if($jml > 0){
-      $_SESSION['username'] = $data['username'];
-      $_SESSION['password'] = $data['password'];
-      $_SESSION['level'] = $data['level'];
+      $_SESSION['smm_sessionArr'] = array(
+         'username' => $data['username'],
+         'password' => $data['password'],
+         'level' => $data['level']
+      );
       
       header('location: index.php');
    }else{
