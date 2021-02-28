@@ -447,6 +447,13 @@ label.label_tahun_rb {
 }
 
 /* Form */
+.login-box input, .login-box select{
+  width: 89%;
+  padding: 15px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+}
+
 .input-checkbox input, 
 .input-checkbox select {
   padding: 15px 20px;
