@@ -68,7 +68,7 @@
 ?>
 <div data-tabs>
    <?php while($resQuery = mysqli_fetch_assoc($execQuery_getUser1)) : ;?>
-      <div><?php echo ucfirst($resQuery['nama']); ?></div>
+      <div><span id="<?php echo "tabTitle_$resQuery[pegawai_id]";?>"><?php echo ucfirst($resQuery['nama']); ?></span></div>
    <?php endwhile; ?>
 </div>
 

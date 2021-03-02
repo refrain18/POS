@@ -66,7 +66,8 @@
     <script src="js/script.js"></script>
     <script src="js/tabbis.es6.min.js"></script>
     <script src="js/skotchmodal.js"></script>
-    <script src="js/filereader.js"></script>
+    <!-- Font Awesome SVG Icon -->
+    <script src="js/all.min.js"></script>
 </body>
 </html>
 <?php

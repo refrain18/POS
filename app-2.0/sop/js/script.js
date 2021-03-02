@@ -265,6 +265,9 @@ function sopFinishing(id, sopResult) {
     return false;
   }
 
+  // Ceklis tab title yang sudah selesai
+  checkTab(id);
+
   if (sopResult) {
     newContent = `
       <label for="foto_bukti_struk">Upload foto: </label>
@@ -296,6 +299,14 @@ function sopFinishing(id, sopResult) {
   `;
 
   el_target.after(newContent);
+}
+
+function checkTab(id) {
+  try {
+    $(`#tabTitle${id}`).prepend('<span><i class="far fa-check-circle" style="color: green;"></i> </span>');
+  } catch (e) {
+    alert(`Terjadi kesalahan pada program: Func checkTab.\nPesan:${e}`);
+  }
 }
 
 // Timer Class
@@ -364,7 +375,7 @@ class Timer {
 
       if (this.#runningTime >= EstimationTime) {
         clearInterval(this.#countup_timer);
-        alert("Waktu telah selesai!");
+        // alert("Waktu telah selesai!");
         $(this.#el_timer[0].children['durasiSopBerjalan']).text('00:00');
         $(this.#el_timer[0].children['targetDurasiSop']).text('00:00');
         this.#el_startBtn.prop('disabled', true);
@@ -401,9 +412,13 @@ class Timer {
       success: (res) => {
         if (res.status) {
           loadSopTables([idloadTable]); // global function
-          alert(res.message);
-
           this.#el_startBtn.prop('disabled', false);
+
+          // Menghapus check pada tab title
+          $(`#tabTitle${this.#timer_id} span`).remove();
+
+          // debug
+          alert(res.message);
         }
       },
       error: function (res) {
