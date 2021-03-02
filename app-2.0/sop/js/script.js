@@ -85,7 +85,6 @@ window.onclick = function (event) {
 $('#notif').delay(3000).fadeOut(300);
 
 function timeEstCalc(context) {
-  // console.log("Checkbox clicked...");
   let totalResTimeContext = context.find("#totalSopTimeEst");
   let sopArr = [];
 
@@ -104,7 +103,6 @@ function timeEstCalc(context) {
     data: { sopArr: sopArr },
     success: function (res) {
       if (res.status) {
-        // console.log(res);
         $(totalResTimeContext[0]).val(res.data != "" ? res.data.total_sop_time_est : "00:00");
       }
     },
@@ -117,7 +115,6 @@ function timeEstCalc(context) {
 function sendTabIdsToCurrentModal(id) {
   try {
     $(window.modal_user_id).val(id);
-    alert('Percobaan Berhasil!');
   } catch (e) {
     alert('Terjadi kesalahan pada program. . .\nPesan: ' + e);
   }
@@ -134,7 +131,6 @@ function validateSopForm(context) {
       timeStamp = context.time_stamp.value,
       id_user = context.modal_user_id.value,
       totalSopTimeEst = context.totalSopTimeEst.value;
-    // id_user = context.id_user.value;
     let checkArr = [], textCheckboxArr = [], checkboxTexts = '';
 
     // Validasi input file
@@ -193,10 +189,6 @@ function validateSopForm(context) {
     dynamicTimerObj[SOP_DYNAMIC_DATA.idObject] = new Timer(SOP_DYNAMIC_DATA.idSopsTab, formSopStarter);
     dynamicTimerObj[SOP_DYNAMIC_DATA.idObject].startTimer(totalSopTimeEst);
 
-    // debug
-    console.log(dynamicTimerObj, textCheckboxArr);
-
-
     $('.scotch-open').remove(); // Menghapus modal SOP
     // Meng-setting ulang button aksi SOP
     $(`#${SOP_DYNAMIC_DATA.idSopsTab} #startSopBtn`).prop('disabled', true);
@@ -219,7 +211,6 @@ function validateSopFinishingForm(id, context) {
 
     let el_sopFinishingForm = context[0].children['sopFormFinishing'],
       el_sopFinishingContainer = context;
-
 
     // Validasi input file
     let fileImgPath = el_sopFinishingForm.foto_bukti_struk;
@@ -249,10 +240,6 @@ function validateSopFinishingForm(id, context) {
 
     // Mengahus element form finishing
     $(el_sopFinishingContainer).remove();
-
-    // debug
-    console.log(id, context);
-    console.log(DYNAMIC_OBJ_PROP);
     return false;
   } catch (e) {
     alert('Terjadi kesalahan pada program...\nPesan Error: ' + e);
@@ -261,8 +248,6 @@ function validateSopFinishingForm(id, context) {
 }
 
 function stopSop(id) {
-  if (!confirm('Waktu SOP sedang berjalan, Apa anda yakin untuk berhenti sekarang?')) { return false; }
-
   // Persiapan pemanggilan object dinamis
   const OBJ_PROP_PREFIX = 'timer', OBJ_PROP_SUFFIX = id;
   const DYNAMIC_OBJ_PROP = OBJ_PROP_PREFIX + OBJ_PROP_SUFFIX;
@@ -419,9 +404,6 @@ class Timer {
           alert(res.message);
 
           this.#el_startBtn.prop('disabled', false);
-
-          // debug
-          console.log(res.data);
         }
       },
       error: function (res) {
@@ -431,7 +413,7 @@ class Timer {
   }
 
   stopTimer() {
-    let conf = confirm('Anda yakin akan menghentikan Timer?');
+    let conf = confirm('Waktu SOP sedang berjalan, Apa anda yakin untuk berhenti sekarang?');
     if (conf == true) {
       clearInterval(this.#countup_timer);
       $(this.#el_timer[0].children['durasiSopBerjalan']).text('00:00');
@@ -444,9 +426,6 @@ class Timer {
 }
 
 function loadSopTables(id_users) {
-  // debug
-  console.log(`params - ${id_users.join(', ')}`);
-
   for (let i = 0; i < id_users.length; i++) {
     let url = "request/load_sop_table.php";
     let req = `id_user=${id_users[i]}`;
@@ -472,84 +451,4 @@ function loadSopTables(id_users) {
   }
 
   return 0;
-
-  // let prefix = 'sopTable';
-
-  // if (typeof sopTableContentObj == 'undefined') {
-  //   sopTableContentObj = {};
-  // }
-
-  // sopTableContentObj[prefix + id_user] = function (id) {
-  //   // $.ajaxSetup({ async: false });
-  //   let url = "request/load_sop_table.php";
-  //   let req = `id_user=${id}`;
-  //   return $.ajax({
-  //     // async: false,
-  //     url: url,
-  //     method: "GET",
-  //     data: req,
-  //     processData: false,
-  //     contentType: false,
-  //     dataType: "json",
-  //     cache: false,
-  //     success: function (res) {
-  //       if (res.status) {
-  //         let el = $(`#_${id} #sopTable`);
-  //         el.html(res.html);
-  //         console.log(el, res.html); // debug
-
-  //       }
-  //     },
-  //     error: function (res) {
-  //       alert(`Terjadi kesalahan pada server!\n${res.message}`);
-  //     }
-  //   });
-  // }
-
-  // sopTableContentObj[prefix + id_user](id_user);
-  // $.ajaxSetup({ async: true });
 }
-
-// function readURL(input) {
-//   if (input.files && input.files[0]) {
-//     var reader = new FileReader();
-
-//     reader.onload = function (e) {
-//       $('#imgPreview').attr('src', e.target.result);
-//       $('#note').text(e.target.result);
-//       console.log(e);
-//     }
-
-//     reader.readAsDataURL(input.files[0]); // convert to base64 string
-//   }
-// }
-
-// $("#fp").change(function () {
-//   readURL(this);
-//   form1 = $('form[name="myForm"]')[0];
-//   form2 = $('form[name="myForm2"]')[0];
-//   let formData1 = new FormData(form1);
-//   let formData2 = new FormData(form2);
-//   console.log(form1);
-//   console.log(formData1);
-//   for (var pair of formData2.entries()) {
-//     formData1.append(pair[0], pair[1]);
-//     // console.log(pair[0] + ', ' + pair[1]);
-//   }
-//   $.ajax({
-//     url: "request/test-file-upload.php",
-//     method: "POST",
-//     data: formData1,
-//     processData: false,
-//     contentType: false,
-//     dataType: "json",
-//     success: function (res) {
-//       if (res.status) {
-//         console.log(res.data);
-//       }
-//     },
-//     error: function () {
-//       alert("Terjadi kesalahan!");
-//     }
-//   });
-// });

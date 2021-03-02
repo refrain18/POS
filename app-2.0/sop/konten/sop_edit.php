@@ -21,28 +21,6 @@
   $fotoStruk = $resQuery['foto_struk'];
   $tgl = $resQuery['tanggal'];
 ?>
-<!-- <script>
-function validateForm() {
-  var validasiHuruf = /^[a-zA-Z ]+$/;  
-  var x = document.forms["myForm"]["nama"].value;
-  var y = document.forms["myForm"]["tmpt_lahir"].value;
-  var z = document.forms["myForm"]["no_hp"].value;
-  if (x.value.match(validasiHuruf)) {
-    
-  }else{
-    alert("NAMA HARUS HURUF !");
-    return false;
-  }
-  if (y !== (/^[a-zA-Z ]+$/)) {
-    alert("TEMPAT LAHIR HARUS HURUF !");
-    return false;
-  }
-  if (z !== (/^[0-9]+$/)) {
-    alert("NO.HP HARUS ANGKA !");
-    return false;
-  }
-}
-</script> -->
 <h2 class="judul">Edit SOP Salon Mumtaza</h2>
 <form name="myForm" onsubmit="return confirm('Simpan Perubahan?');"  method="post" action="?hal=sop_update" enctype="multipart/form-data">
 

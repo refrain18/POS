@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    /* box-sizing: border-box; */
 }
 
 html, body {
@@ -17,7 +16,6 @@ nav {
     display: flex;
     background-color: rgb(40, 143, 120);
     justify-content: space-around;
-    /* padding: 20px 0px; */
     color: rgb(255, 174, 0);
     height: 50px;
     align-items: center;
@@ -484,17 +482,6 @@ input[type=submit] {
 }
 
 /* Layout */
-/* header{
-  background: rgb(40, 143, 120);
-  cursor: pointer;;
-  color: #fff;
-  padding: 15px 20px;
-  font-size: 20px;
-} */
-/* aside{
-  flex: 20%;
-  background: #222;
-} */
 section.main{
   background: #fff;
   min-height: 100vh;
@@ -606,9 +593,6 @@ input.t_search {
   width: 50%;
   float: left;
 }
-/*.form-group .input[type=date]{*/
-/*    display: inline-block;*/
-/*}*/
 input[type=radio]{ 
   width: 50px
 }

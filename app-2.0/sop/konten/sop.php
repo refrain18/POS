@@ -6,12 +6,6 @@
    <h1>Pilih SOP!</h1>
    <form name="sopForm" id="sop-form" onsubmit="return validateSopForm(this);">
       <?php 
-         // $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
-         // if($notif == 'tipefile') { echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>"; }
-         // elseif($notif == 'ukuranfile') { echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>"; }
-         // elseif($notif == 'tipefilec'){ echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>"; }
-         // elseif ($notif == 'ukuranfilec') { echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 3MB</div>"; }
-
          $query = "SELECT jp_id, nama_perawatan FROM jenis_perawatan";
          $execQuery = mysqli_query($con, $query) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
 
@@ -69,14 +63,12 @@
       $where = "AND user.user_id = '$ID_CURRENT_USER'";
    }
    $query_getUsers = "SELECT pegawai_id, pegawai.nama FROM pegawai JOIN user ON pegawai.user_id = user.user_id WHERE user.level = 'clusterx' AND user.status = 'on' $where";
-   // $query_getUsers = "SELECT user_id, username FROM user WHERE level IN ('owner', 'clusterx')";
    $execQuery_getUser1 = mysqli_query($con, $query_getUsers) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
    $execQuery_getUser2 = mysqli_query($con, $query_getUsers) OR die('Terjadi kesalahan pada server: '.mysqli_error($con));
-   //$i=0;
 ?>
 <div data-tabs>
    <?php while($resQuery = mysqli_fetch_assoc($execQuery_getUser1)) : ;?>
-      <div><?php echo ucfirst($resQuery['nama']);//$i++; ?></div>
+      <div><?php echo ucfirst($resQuery['nama']); ?></div>
    <?php endwhile; ?>
 </div>
 
@@ -84,7 +76,7 @@
    <?php
       $idUserPanesArr = array();
    ?>
-   <?php while($resQuery = mysqli_fetch_assoc($execQuery_getUser2)) ://for($j=0;$j<$i;$j++) : ;?>
+   <?php while($resQuery = mysqli_fetch_assoc($execQuery_getUser2)) : ?>
       <?php array_push($idUserPanesArr, $resQuery['pegawai_id']) ;?>
       <div>
          <div class="scrollable-card-content" id="<?php echo "_$resQuery[pegawai_id]";?>">
@@ -108,39 +100,20 @@
                   </tr>
                </thead>
                <tbody id="sopTable">
-                  <!-- <script type="text/javascript">
-                     window.onload = function(){
-                        loadSopTable(<?php //echo $resQuery['user_id'] ;?>); 
-                     };
-                  </script> -->
                </tbody>
             </table>
          </div>
       </div>
       
-   <?php endwhile;//endfor; ?>
+   <?php endwhile; ?>
    <?php 
-
-   echo "
-      <script type='text/javascript'>
-         window.onload = function(){
-            loadSopTables([".implode(', ', $idUserPanesArr)."]); 
-         };
-      </script>
-   ";
-
-      // echo "
-      //    <script>
-      //       window.onload = function(){
-      //          loadSopTable($resQuery[user_id]); 
-      //       };
-      //    </script>
-      // ";
-      // $execQuery_getSop = mysqli_query($con, "SELECT sop.*, pegawai.nama, jenis_perawatan.nama_perawatan, sop.komisi 
-      //    FROM sop JOIN pegawai ON sop.pegawai_id = pegawai.pegawai_id JOIN jenis_perawatan ON sop.jp_id = jenis_perawatan.jp_id 
-      //    WHERE sop.tanggal = '$current_timestamp' AND sop.pegawai_id = '$resQuery[user_id]' 
-      //    ORDER BY id_sop DESC LIMIT 5");
-      // $no = 0;
+      echo "
+         <script type='text/javascript'>
+            window.onload = function(){
+               loadSopTables([".implode(', ', $idUserPanesArr)."]); 
+            };
+         </script>
+      ";
    ?>
 </div>
 
