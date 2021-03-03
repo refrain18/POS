@@ -24,12 +24,15 @@
 ?>
 
 <h2 class="judul">Detail Rekap SOP Harian Salon Mumtaza</h2>
-<div class="label_123">
-    <label class="l_haritanggal" for="">Hari/Tanggal : <?php echo $tgl; ?></label>
-    <br>
-    <label class="l_tsh" for="">Nama : <?php echo $resQuery['nama']; ?></label>
-    <label class="l_rc" for="">Rundown Complete : <?php echo $resQuery['completed']; ?></label>
-    <label class="l_ri" for="">Rundown Incomplete : <?php echo $resQuery['incompleted']; ?></label>
+<div style="width: 80%;">
+   <div class="flex-container">
+      <div class="flex-item clear-padding clear-border" style="width: 15em;"><label><b>Hari/Tanggal : </b><?php echo $tgl; ?></label></div>
+      <div class="flex-item clear-padding clear-border" style="width: 15em;"><label><b>Nama : </b><?php echo $resQuery['nama']; ?></label></div>
+   </div>
+   <div class="flex-container">
+      <div class="flex-item clear-padding clear-border" style="width: 15em;"><label><b>Rundown Complete : </b><?php echo $resQuery['completed']; ?></label></div>
+      <div class="flex-item clear-padding clear-border" style="width: 15em;"><label><b>Rundown Incomplete : </b><?php echo $resQuery['incompleted']; ?></label></div>
+   </div>
 </div>
 <!-- <a class="cetak" href="?hal=rh_cetak_detail">Cetak</a> -->
 <br>
