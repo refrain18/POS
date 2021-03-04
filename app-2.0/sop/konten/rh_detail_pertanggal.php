@@ -1,6 +1,6 @@
 <?php
    if(!defined('INDEX')) die("");
-   // Untuk Filter Detail Laporan Bulanan
+   // Untuk Filter Detail Laporan Harian
    $filter_tgl = isset($_GET['filter']) && !empty($_GET['filter']) ? $_GET['filter'] : false;
 
    if (!$filter_tgl) {

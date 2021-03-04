@@ -1,5 +1,16 @@
 <?php
    if(!defined('INDEX')) die("");
+
+   // Untuk Filter Detail Laporan Harian
+   $filter_tgl = isset($_GET['filter_tgl']) ? $_GET['filter_tgl'] : '';
+
+   $where_clause = "";
+   if (!empty($filter_tgl)) {
+      // Cek validitas format value filter
+      if (date_parse($filter_tgl)['error_count'] == 0) {
+         $where_clause = "WHERE a.tanggal = '$filter_tgl'";
+      }
+   }
 ?>
 
 <h2 class="judul">Rekap SOP Harian Salon Mumtaza</h2>
@@ -7,7 +18,7 @@
 <div>
 <form action="" method="GET">
    <input type="hidden" name="hal" value="rekap_harian" readonly>
-   <input class="date_seach" type="date" name="filter_tgl">
+   <input class="date_seach" type="date" name="filter_tgl" value="<?= $filter_tgl; ?>">
    <input class="t_search" type="submit" value="Search">
 </form>
 <!-- <a class="cetak_rh" href="?hal=rh_cetak">Cetak</a> -->
@@ -36,7 +47,7 @@
       COUNT(id_sop) as total_cus, 
       (SELECT COUNT(hasil_rundown) FROM sop b WHERE b.tanggal = a.tanggal AND b.hasil_rundown = 'Terpenuhi') as total_completed, 
       (SELECT COUNT(hasil_rundown) FROM sop c WHERE c.tanggal = a.tanggal AND c.hasil_rundown != 'Terpenuhi') as total_incompleted 
-      FROM sop a GROUP BY a.tanggal;
+      FROM sop a $where_clause GROUP BY a.tanggal;
    ";
    $execQuery = mysqli_query($con, $query);
    $no = 0;
