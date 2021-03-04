@@ -11,7 +11,7 @@
 
    if($execQuery){
       echo "Data berhasil dihapus!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=sop'>";
+      echo "<meta http-equiv='refresh' content='1; url=?hal=rekap_harian'>";
    }else{
       echo "Tidak dapat menghapus data!<br>";
       echo mysqli_error($con);

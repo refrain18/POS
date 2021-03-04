@@ -20,6 +20,9 @@
   $fotoPegawai = $resQuery['foto_pegawai'];
   $fotoStruk = $resQuery['foto_struk'];
   $tgl = $resQuery['tanggal'];
+  
+  $gambar_pegawai = "<img src='gambar/foto_pegawai/$fotoPegawai' alt='$fotoPegawai' style='width: 200px; vertical-align: middle;'/>";
+  $gambar_struk = "<img src='gambar/foto_struk/$fotoStruk' alt='$fotoStruk' style='width: 200px; vertical-align: middle;'/>";
 ?>
 <h2 class="judul">Edit SOP Salon Mumtaza</h2>
 <form name="myForm" onsubmit="return confirm('Simpan Perubahan?');"  method="post" action="?hal=sop_update" enctype="multipart/form-data">
@@ -77,11 +80,11 @@
 
   <div class="form-group">
     <label for="foto_pegawai">Foto Pegawai</label>   
-    <div class="input"><input type="file" id="fp" name="fp" required></div> 
+    <div class="input"><input type="file" id="fp" name="fp" value="<?php echo $fotoPegawai ?>" required> <?php echo $gambar_pegawai ?></div> 
   </div>
   <div class="form-group">
     <label for="fs">Foto Bukti Struk</label>   
-    <div class="input"><input type="file" id="fs" name="fs" required></div> 
+    <div class="input"><input type="file" id="fs" name="fs" value="<?php echo $fotoStruk ?>" required> <?php echo $gambar_struk ?></div> 
   </div>
   <div class="form-group">
     <label for="tanggal">Tanggal</label>   

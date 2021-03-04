@@ -74,7 +74,7 @@
          <?php if($level == 'owner') : ?>
             <td>
                <a class="tombol edit" href="?hal=sop_edit&q=<?= $data['id_sop'] ?>"> Edit </a>
-               <a class="tombol hapus" href="?hal=sop_hapus&q=<?= $data['id_sop'] ?>"> Delete </a>
+               <a class="tombol hapus" onclick="return confirm('Aksi ini akan menghapus data secara permanen!');" href="?hal=sop_hapus&q=<?= $data['id_sop'] ?>"> Delete </a>
             </td>
          <?php endif; ?>
      </tr>
