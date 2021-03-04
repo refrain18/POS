@@ -1,9 +1,9 @@
 <?php
    if(!defined('INDEX')) die("");
    // Untuk Filter Detail Laporan Harian
-   $filter_tgl = isset($_GET['filter']) && !empty($_GET['filter']) ? $_GET['filter'] : false;
+   $filter_tgl = isset($_GET['filter']) ? $_GET['filter'] : '';
 
-   if (!$filter_tgl) {
+   if (empty($filter_tgl)) {
       echo "<meta http-equiv='refresh' content='1; url=?hal=rekap_harian'>";
    }
 
@@ -30,10 +30,8 @@
       <div class="flex-item clear-padding clear-border" style="width: 15em;"><label><b>Rundown Incomplete : </b><?php echo $resQuery['total_incompleted']; ?></label></div>
    </div>
 </div>
-<!-- <a class="cetak" href="?hal=rh_cetak_detail">Cetak</a> -->
-<br>
-<!-- <a class="cetak" href="?hal=cetak_pg">Cetak</a> -->
-</br>
+<a class="btn_cetak" target="_BLANK" href="konten/rh_cetak_pertanggal.php?q=<?= $filter_tgl ;?>">Cetak</a>
+<br><br>
 <table class="table">
    <thead>
       <tr>

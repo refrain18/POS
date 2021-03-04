@@ -34,10 +34,8 @@
       <div class="flex-item clear-padding clear-border" style="width: 15em;"><label><b>Rundown Incomplete : </b><?php echo $resQuery['incompleted']; ?></label></div>
    </div>
 </div>
-<!-- <a class="cetak" href="?hal=rh_cetak_detail">Cetak</a> -->
-<br>
-<!-- <a class="cetak" href="?hal=cetak_pg">Cetak</a> -->
-</br>
+<a class="btn_cetak" target="_BLANK" href="konten/rh_cetak_perorangan.php?q=<?= implode(',',$filter) ;?>">Cetak</a>
+<br><br>
 <table class="table">
    <thead>
       <tr>

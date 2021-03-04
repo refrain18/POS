@@ -13,18 +13,19 @@
    }
 ?>
 
-<h2 class="judul">Rekap SOP Harian Salon Mumtaza</h2>
-<br>
-<div>
-<form action="" method="GET">
-   <input type="hidden" name="hal" value="rekap_harian" readonly>
-   <input class="date_seach" type="date" name="filter_tgl" value="<?= $filter_tgl; ?>">
-   <input class="t_search" type="submit" value="Search">
-</form>
-<!-- <a class="cetak_rh" href="?hal=rh_cetak">Cetak</a> -->
+<h2 class="judul">Rekap SOP Harian Salon Mumtaza</h2><br>
+<div class="flex-container" style="justify-content: space-between;">
+   <div class="flex-item clear-padding clear-border" style="flex-grow: 9;">
+      <form action="" method="GET">
+         <input type="hidden" name="hal" value="rekap_harian" readonly>
+         <input class="date_seach" type="date" name="filter_tgl" value="<?= $filter_tgl; ?>">
+         <input class="t_search" type="submit" value="Search">
+      </form>
+   </div>
+   <!-- <div class="flex-item clear-padding clear-border" style="margin-top: 2.5rem; flex-grow: 1;">
+      <a class="btn_cetak" href="?hal=rh_cetak">Cetak</a>
+   </div> -->
 </div>
-<!-- <a class="cetak" href="?hal=cetak_pg">Cetak</a> -->
-</br>
 <table class="table">
    <thead>
       <tr>
