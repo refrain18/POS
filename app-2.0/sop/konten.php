@@ -18,9 +18,9 @@
 
    // Halaman yang sedang di maintenance
    $maintenanceArr = array(
-      "rekap_bulanan", "sop_rundown","sop_lihat", 
-      "rh_cetak", "rh_cetak_detail", "rb_cetak", 
-      "rb_detail", "rb_cetak_detail"
+      "sop_rundown","sop_lihat", 
+      "rh_cetak", "rh_cetak_detail", 
+      "rb_cetak", "rb_cetak_detail"
    );
 
    if(isset($_GET['hal']) && !empty($_GET['hal'])) $hal = $_GET['hal'];

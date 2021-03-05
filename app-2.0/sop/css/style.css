@@ -481,6 +481,13 @@ input[type=submit] {
    margin: 20px 20px;
 }
 
+.standar-input {
+  width: 15rem;
+  padding: 15px 20px;
+  margin: 2px 0;
+  border: 1px solid #ccc;
+}
+
 /* Layout */
 section.main{
   background: #fff;
