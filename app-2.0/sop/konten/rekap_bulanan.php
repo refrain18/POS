@@ -46,7 +46,7 @@
       </form>
    </div>
 </div>
-<a class="btn_cetak" href="?hal=rb_cetak" style="margin: 0px 0px 15px;">Cetak</a>
+<a class="btn_cetak" target="_BLANK" href="konten/rb_cetak_pertahun.php?q=<?= !empty($filter_thn) ? $filter_thn : $currentYear; ?>" style="margin: 0px 0px 15px;">Cetak</a>
 <br>
 <table class="table">
    <thead>

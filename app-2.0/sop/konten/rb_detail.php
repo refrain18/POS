@@ -32,7 +32,7 @@
       <div class="flex-item clear-padding clear-border" style="width: 15em;"><label><b>Total Rundown Incomplete : </b><?php echo $resQuery['total_incompleted']; ?></label></div>
    </div>
 </div>
-<a class="btn_cetak" href="?hal=rb_cetak_detail">Cetak</a>
+<a class="btn_cetak" target="_BLANK" href="konten/rb_cetak_perbulan.php?q=<?= $filter; ?>">Cetak</a>
 <br>
 <br>
 <table class="table">
