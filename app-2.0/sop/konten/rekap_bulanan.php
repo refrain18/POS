@@ -1,5 +1,20 @@
 <?php
    if(!defined('INDEX')) die("");
+   
+   // Untuk Filter Detail Laporan Harian
+   $filter_thn = isset($_GET['filter_thn']) ? $_GET['filter_thn'] : '';
+   
+   // Set Time Zone    
+   ini_set('date.timezone', 'Asia/Jakarta');
+   $currentYear = date('Y');
+
+   $where_clause = "WHERE YEAR(a.tanggal) = '$currentYear'";
+   if (!empty($filter_thn)) {
+      // Cek validitas format value filter
+      if (date_parse($filter_thn)['error_count'] == 0) {
+         $where_clause = "WHERE YEAR(a.tanggal) = '$filter_thn'";
+      }
+   }
 
    // Query Untuk Mengambil Data SOP per Bulan
    $query = "SELECT 
@@ -16,17 +31,22 @@
 ?>
 
 <h2 class="judul">Rekap SOP Bulanan Salon Mumtaza</h2>
-<br>
-<div>
-   <label for="tahun">Filter Tahun : </label>
-   <select class="standar-input" name="tahun" id="tahun">
-      <option value="2020">2020</option>
-      <?php while($row = mysqli_fetch_assoc($execQuery)) : ?>
-         <option value="<?= $row['tahun'] ?>"><?= $row['tahun'] ?></option>
-      <?php endwhile ?>
-   </select>
-   <a class="btn_cetak" href="?hal=rb_cetak" style="margin: 15px 0px;">Cetak</a>
+<div class="flex-container" style="justify-content: space-between; width: 80%;">
+   <div class="flex-item clear-padding clear-border">
+      <form action="" method="GET">
+         <label for="tahun">Filter Tahun : </label>
+         <input type="hidden" name="hal" value="rekap_bulanan" readonly>
+         <select class="standar-input" name="filter_thn" id="tahun">
+            <option value="">--Pilih--</option>
+            <?php while($row = mysqli_fetch_assoc($execQuery)) : ?>
+               <option value="<?= $row['tahun'] ?>" <?= $filter_thn == $row['tahun'] ? 'selected' : ''; ?>><?= $row['tahun'] ?></option>
+            <?php endwhile ?>
+         </select>
+         <input class="t_search" type="submit" value="Search">
+      </form>
+   </div>
 </div>
+<a class="btn_cetak" href="?hal=rb_cetak" style="margin: 0px 0px 15px;">Cetak</a>
 <br>
 <table class="table">
    <thead>
@@ -49,6 +69,7 @@
          (SELECT COUNT(hasil_rundown) FROM sop c WHERE MONTHNAME(c.tanggal) = MONTHNAME(a.tanggal) AND c.hasil_rundown != 'Terpenuhi') as total_incompleted 
       FROM 
          sop a 
+      $where_clause 
       GROUP BY 
          MONTHNAME(a.tanggal) 
       ORDER BY 
