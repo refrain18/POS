@@ -31,7 +31,6 @@
    );
 
    $maintenanceArr = array(
-      "gaji_pegawai","gp_tambah","gp_insert",
       "gp_edit","gp_update","gp_hapus","gp_cetak",
       "rekap_sm", "rekap_sk", "kinerja","daftar_produk","dp_tambah","dp_insert",
       "dp_edit","dp_update","dp_hapus",

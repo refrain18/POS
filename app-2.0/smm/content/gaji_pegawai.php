@@ -3,6 +3,7 @@
 ?>
 
 <h2 class="judul">Sistem Penggajian Pegawai</h2>
+<br>
 <a class="tombol" href="?hal=gp_tambah">Tambah</a>
 <a class="cetak" href="?hal=gp_cetak">Cetak</a>
 
@@ -26,9 +27,15 @@
    </thead>
    <tbody>
 <?php
-   $query = mysqli_query($con, "SELECT gaji.*, pegawai.nama, sum(sop.komisi) as komisi FROM gaji JOIN pegawai ON gaji.pegawai_id = pegawai.pegawai_id JOIN sop ON pegawai.pegawai_id = sop.pegawai_id ORDER BY gaji_id DESC");
+   $query = "SELECT 
+         gaji.*, pegawai.nama, sum(sop.komisi) as komisi 
+      FROM 
+         gaji LEFT JOIN pegawai ON gaji.pegawai_id = pegawai.pegawai_id LEFT JOIN sop ON pegawai.pegawai_id = sop.pegawai_id 
+      GROUP BY gaji_id ORDER BY gaji_id;
+   ";
+   $execQuery_getGajiPegawai = mysqli_query($con, $query);
    $no = 0;
-   while($data = mysqli_fetch_array($query)){
+   while($data = mysqli_fetch_assoc($execQuery_getGajiPegawai)){
       $no++;
 ?>
       <tr>
@@ -40,7 +47,7 @@
          <td><?= $data['loyalitas'] ?></td>
          <td><?= $data['kedisiplinan'] ?></td>
          <td><?= $data['transport_umakan'] ?></td>
-         <td><?= $data['komisi'] ?></td>
+         <td><?= $data['komisi'] !== null ? $data['komisi'] : 0; ?></td>
          <td><?= $data['total_gaji'] ?></td>
          <td><?= $data['tpi_tel'] ?></td>
          <td><?= $data['total_terima'] ?></td>
