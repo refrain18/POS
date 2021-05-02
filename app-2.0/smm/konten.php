@@ -50,8 +50,9 @@
       "rsk_cetak_detail"
    );
 
-   if(isset($_GET['hal']) && !empty($_GET['hal'])) $hal = $_GET['hal'];
-   else $hal = "dashboard";
+   if( (isset($_GET['mod']) && !empty($_GET['mod'])) && (isset($_GET['hal']) && !empty($_GET['hal']) )) { 
+      $mod = $_GET['mod']; $hal = $_GET['hal'];
+   } else $hal = "dashboard";
 
    foreach($halamanArr as $h){
       if ($h == $hal) {
@@ -61,7 +62,11 @@
                break 2;
             }
          }
-         include "content/$h.php";
+         if (!isset($mod)) {
+            include "content/$h.php";
+         } else {
+            include "content/$mod/$h.php";
+         }
          break;
       } 
    }

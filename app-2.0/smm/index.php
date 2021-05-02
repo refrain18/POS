@@ -55,15 +55,15 @@
             <?php if($level != 'sdm' && $level != 'kasir') : ?>
                 <li><button onclick="myFunction()" class="dropbtn">Keuangan <i class="fa fa-caret-down"></i></button>
                     <div id="myDropdown" class="dropdown-content">
-                        <a href="?hal=pos">Tambah Transaksi</a>
+                        <a href="?mod=transaksi&hal=pos">Tambah Transaksi</a>
                         <!-- level akses owner  -->
                         <?php if($level == 'owner') : ?>
-                            <a href="?hal=laporan_harian">Laporan Harian</a>
-                            <a href="?hal=laporan_bulanan">Laporan Bulanan</a>
-                            <a href="?hal=gaji_pegawai">Gaji Pegawai</a>
-                            <a href="?hal=daftar_produk">Daftar Produk Salon</a>
-                            <a href="?hal=daftar_hpp">Daftar Harga Produk Perbulan</a>
-                            <a href="?hal=jenis_perawatan">Jenis Perawatan</a>
+                            <a href="?mod=laporan&hal=laporan_harian">Laporan Harian</a>
+                            <a href="?mod=laporan&hal=laporan_bulanan">Laporan Bulanan</a>
+                            <a href="?mod=gaji_pegawai&hal=gaji_pegawai">Gaji Pegawai</a>
+                            <a href="?mod=daftar_produk&hal=daftar_produk">Daftar Produk Salon</a>
+                            <a href="?mod=daftar_harga_produk_perbulan&hal=daftar_hpp">Daftar Harga Produk Perbulan</a>
+                            <a href="?mod=jenis_perawatan&hal=jenis_perawatan">Jenis Perawatan</a>
                         <?php endif; ?>
                     </div>
                 </li>
@@ -71,21 +71,21 @@
             <?php if($level != 'kasir' && $level != 'admin') : ?> 
             <li><button onclick="myFunction1()" class="dropbtn1" >Pegawai <i class="fa fa-caret-down"></i></button>
                 <div id="myDropdown1" class="dropdown-content1">
-                    <a href="?hal=data_pegawai">Data Pegawai</a>
-                    <a href="?hal=absen_pegawai">Absen Pegawai</a>
-                    <a href="?hal=rekap_absen">Rekap Absen</a>
-                    <a href="?hal=kinerja">Kinerja  Mingguan</a>
-                    <a href="?hal=rekap_kinerja">Kinerja  Bulanan</a>
+                    <a href="?mod=pegawai&hal=data_pegawai">Data Pegawai</a>
+                    <a href="?mod=absen_pegawai&hal=absen_pegawai">Absen Pegawai</a>
+                    <a href="?mod=rekap_absen&hal=rekap_absen">Rekap Absen</a>
+                    <a href="?mod=kinerja&hal=kinerja">Kinerja  Mingguan</a>
+                    <a href="?mod=rekap_kinerja&hal=rekap_kinerja">Kinerja  Bulanan</a>
                 </div>
             </li>
             <?php endif; ?>
             <?php if($level != 'sdm' && $level != 'admin') : ?>
             <li><button onclick="myFunction2()" class="dropbtn2" >Laporan Stok Produk Salon <i class="fa fa-caret-down"></i></button>
                 <div id="myDropdown2" class="dropdown-content2">
-                    <a href="?hal=stok_masukM">Stok Masuk Mingguan</a>
-                    <a href="?hal=rekap_sm">Stok Masuk Bulanan</a>
-                    <a href="?hal=stok_keluarM">Penggunaan Mingguan</a>
-                    <a href="?hal=rekap_sk">Penggunaan Bulanan</a>
+                    <a href="?mod=stok_masuk&hal=stok_masukM">Stok Masuk Mingguan</a>
+                    <a href="?mod=rekap_stok_masuk&hal=rekap_sm">Stok Masuk Bulanan</a>
+                    <a href="?mod=stok_keluar&hal=stok_keluarM">Penggunaan Mingguan</a>
+                    <a href="?mod=rekap_stok_keluar&hal=rekap_sk">Penggunaan Bulanan</a>
                 </div>
             </li>
             <!-- penutup level -->
