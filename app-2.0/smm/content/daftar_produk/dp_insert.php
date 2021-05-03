@@ -1,6 +1,7 @@
 <?php
    if(!defined('INDEX')) die("");
 
+   ini_set('date.timezone', 'Asia/Jakarta');
    $waktu = date("Y-m-d H:i:s");
    $nama_produk = $_POST["nama_produk"];
    $stok = $_POST["stok"];
@@ -16,7 +17,7 @@
 
    if($query){
       echo "Data berhasil disimpan!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=daftar_produk'>";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=daftar_produk&hal=daftar_produk'>";
    }else{
       echo "Tidak dapat menyimpan data!<br>";
       echo mysqli_error($con);

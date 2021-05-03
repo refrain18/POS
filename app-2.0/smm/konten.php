@@ -31,8 +31,7 @@
    );
 
    $maintenanceArr = array(
-      "rekap_sm", "rekap_sk", "kinerja","daftar_produk","dp_tambah","dp_insert",
-      "dp_edit","dp_update","dp_hapus",
+      "rekap_sm", "rekap_sk", "kinerja",
       "daftar_hpp","dh_detail","dh_cetak",
       "dh_cetak_detail","absen_pegawai",
       "ap_tambah","ap_insert","ap_edit",

@@ -3,8 +3,8 @@
 ?>
 
 <h2 class="judul">Daftar Produk Salon Mumtaza</h2>
-<a class="tombol" href="?hal=dp_tambah">Tambah</a>
-<!-- <a class="cetak" href="?hal=cetak_pg">Cetak</a> -->
+<a class="tombol" href="?mod=daftar_produk&hal=dp_tambah">Tambah</a>
+<a class="cetak" target="_BLANK" href="./content/daftar_produk/dp_cetak.php" style="margin: 0px 0px 15px 0;">Cetak</a>
 
 <table class="table">
    <thead>
@@ -29,8 +29,8 @@
          <td><?= $data['stok'] ?></td>
          <td><?= $data['harga'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=dp_edit&produk_id=<?= $data['produk_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=dp_hapus&produk_id=<?= $data['produk_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=daftar_produk&hal=dp_edit&produk_id=<?= $data['produk_id'] ?>"> Edit </a>
+            <a class="tombol hapus" href="?mod=daftar_produk&hal=dp_hapus&produk_id=<?= $data['produk_id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"> Hapus </a>
          </td>
      </tr>
 <?php
