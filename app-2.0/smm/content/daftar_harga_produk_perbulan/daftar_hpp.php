@@ -2,36 +2,79 @@
    if(!defined('INDEX')) die("");
 ?>
 
+<script>
+   function getData() {
+      // ! BUG: Ajax Response returning empty data
+      let el_bln = document.getElementById('bulan');
+      let el_thn = document.getElementById('tahun');
+      
+      if (el_bln.value == '' || el_thn.value == '') {
+         console.log('Wait for other params...');
+         return false;
+      }
+
+      let url = 'request/get_daftar_rata_harga_produk_perbulan.php'
+      let req = `q={"bulan": "${el_bln.value}", "tahun": "${el_thn.value}"`;      
+      console.log('Activated');
+      $.ajax({
+         url: url,
+         method: "GET",
+         data: req,
+         dataType: "json",
+         success: function (res) {
+            if (res.status) {
+               document.getElementById('tableData').innerHTML = res.data;
+               console.log("Req Complete!");
+            }
+         },
+         error: function (res) {
+            alert(`Terjadi kesalahan pada server!\n${res.message}`);
+         }
+      });
+   }
+</script>
+
 <h2 class="judul">Daftar Harga Produk Salon Mumtaza Perbulan</h2>
 <br>
 <div>
 <form action="">   
 <label class="label_bulan" for="">Bulan</label>
-<select class="select_bulan" name="bulan" id="bulan">
-    <option value="januari">Januari</option>
-    <option value="februari">Februari</option>
-    <option value="maret">Maret</option>
+<select class="select_bulan" style="padding:0;" name="bulan" id="bulan" onchange="//getData();">
+   <option value="" selected>--Pilih--</option>
+    <option value="january">Januari</option>
+    <option value="february">Februari</option>
+    <option value="march">Maret</option>
     <option value="april">April</option>
-    <option value="mei">Mei</option>
-    <option value="juni">Juni</option>
-    <option value="juli">Juli</option>
-    <option value="agustus">Agustus</option>
+    <option value="may">Mei</option>
+    <option value="june">Juni</option>
+    <option value="july">Juli</option>
+    <option value="august">Agustus</option>
     <option value="september">September</option>
-    <option value="oktober">Oktober</option>
+    <option value="october">Oktober</option>
     <option value="november">November</option>
-    <option value="desember">Desember</option>
+    <option value="december">Desember</option>
 </select>
 
+<?php
+$stmt = "SELECT DISTINCT 
+      YEAR(tanggal) as tahun 
+   FROM stok_masuk ORDER BY tanggal ASC;
+";
+
+$execQuery = mysqli_query($con, $stmt);
+?>
 <label class="label_tahun" for="">Tahun</label>
-<select class="select_tahun" name="tahun" id="tahun">
-    <option value="2020">2020</option>
-    <option value="2021">2021</option>
+<select class="select_tahun" style="padding:0;" name="tahun" id="tahun" onchange="//getData();">
+   <option value="" selected>--Pilih--</option>
+   <?php while($thn = mysqli_fetch_assoc($execQuery)): ?>
+      <option value="<?= $thn['tahun'] ?>"><?= $thn['tahun'] ?></option>
+   <?php endwhile; ?>
 </select>
 </form>
 </div>
-<a class="cetak" href="?hal=dh_cetak">Cetak</a>
+<a class="cetak" target="_BLANK" href="./content/daftar_harga_produk_perbulan/dh_cetak.php?q=" style="margin: 0px 0px 15px 0;">Cetak</a>
 <br>
-<!-- <a class="cetak" href="?hal=cetak_pg">Cetak</a> -->
+
 </br>
 </br>
 <table class="table">
@@ -43,23 +86,28 @@
          <th>Aksi</th>
       </tr>
    </thead>
-   <tbody>
+   <tbody id="tableData">
 <?php
-   $query = mysqli_query($con, "SELECT produk_salon.*, stok_masuk.harga FROM produk_salon JOIN stok_masuk ON produk_salon.produk_id = stok_masuk.produk_id ORDER BY produk_id ASC");
+   $stmt = "SELECT 
+         a.produk_id, b.nama_produk, 
+         (SELECT ROUND(AVG(harga), 0) FROM stok_masuk c WHERE c.produk_id = a.produk_id) as hrg_rata 
+      FROM stok_masuk a JOIN produk_salon b ON a.produk_id = b.produk_id 
+      WHERE a.tanggal BETWEEN '2021-01-01' AND '2021-01-30' 
+      GROUP BY a.produk_id ORDER BY a.produk_id ASC;
+   ";
+
+   $query = mysqli_query($con, $stmt);
    $no = 0;
    while($data = mysqli_fetch_array($query)){
-      $no++;
-
-
 ?>
-      <tr>
-         <td><?= $no ?></td>
-         <td><?= $data['nama_produk'] ?></td>
-         <td></td>
-         <td>
-            <a class="tombol_detail" href="?hal=dh_detail&produk_id=<?= $data['produk_id'] ?>"> Detail </a>
-         </td>
-     </tr>
+   <tr>
+      <td><?= ++$no ?></td>
+      <td><?= $data['nama_produk'] ?></td>
+      <td><?= $data['hrg_rata'] ?></td>
+      <td>
+         <a class="tombol_detail" href="?mod=daftar_harga_produk_perbulan&hal=dh_detail&produk_id=<?= $data['produk_id'] ?>"> Detail </a>
+      </td>
+   </tr>
 <?php
    }
 ?>
