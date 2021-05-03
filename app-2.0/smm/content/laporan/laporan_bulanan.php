@@ -63,7 +63,7 @@
    </table>
    <br>
    <div style="float:right">
-      <a class="tombol edit" href="?hal=laporan_bulanan">Kembali</a>
+      <a class="tombol edit" href="?mod=laporan&hal=laporan_bulanan">Kembali</a>
    </div>
 
 <?php else : ?>
@@ -97,11 +97,11 @@
 ?>
       <tr>
          <td><?= $data['bulan'] ?></td>
-         <td><?= $data['income'] ?></td>
+         <td><?= !empty($data['income']) ? $data['income'] : "-" ?></td>
          <td><?= !empty($data['outcome']) ? $data['outcome'] : "-"; ?></td>
          <td>
-            <a class="tombol edit" href="?hal=laporan_bulanan&filter=<?= "debet,".strtolower($data['bulan']) ?>"> Detail Debet</a>
-            <a class="tombol edit" href="?hal=laporan_bulanan&filter=<?= "kredit,".strtolower($data['bulan']) ?>"> Detail Kredit</a>
+            <a class="tombol edit" href="?mod=laporan&hal=laporan_bulanan&filter=<?= "debet,".strtolower($data['bulan']) ?>"> Detail Debet</a>
+            <a class="tombol edit" href="?mod=laporan&hal=laporan_bulanan&filter=<?= "kredit,".strtolower($data['bulan']) ?>"> Detail Kredit</a>
          </td>
       </tr>
 <?php endwhile; ?>
