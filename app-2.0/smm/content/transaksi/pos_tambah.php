@@ -18,7 +18,7 @@ function validateForm() {
 </script>
 
 <h2 class="judul">Tambah Transaksi</h2>
-<form name="myForm" onsubmit="return validateForm()" method="post" action="?hal=pos_insert" enctype="multipart/form-data">
+<form name="myForm" onsubmit="return validateForm()" method="post" action="?mod=transaksi&hal=pos_insert" enctype="multipart/form-data">
 
    <?php
       
@@ -32,23 +32,23 @@ function validateForm() {
 
    ?>
    <div class="form-group">
-      <label for="namaproduk">Nama Transaksi</label>   
-      <div class="input"><input type="text" id="namaproduk" name="namaproduk"></div> 
+      <label for="namaproduk"><small style="color:red;">*</small>Nama Transaksi</label>   
+      <div class="input"><input type="text" id="namaproduk" name="namaproduk" required></div> 
    </div>
 
    <div class="form-group">
-      <label for="harga">Harga Transaksi</label>   
-      <div class="input"><input type="number" id="harga" name="harga"></div> 
+      <label for="harga"><small style="color:red;">*</small>Harga Transaksi</label>   
+      <div class="input"><input type="number" id="harga" name="harga" required></div> 
    </div>
 
    <div class="form-group">
-      <label for="diskon">Diskon</label>   
-      <div class="input"><input type="number" id="diskon" name="diskon"></div> 
+      <label for="diskon">Diskon (Persen)</label>   
+      <div class="input"><input type="number" id="diskon" name="diskon" min="0" max="100"></div> 
    </div>
 
    <div class="form-group">
-      <label for="jumlah">Qty</label>   
-      <div class="input"><input type="number" id="jumlah" name="jumlah" onkeyup="validasi()"></div> 
+      <label for="jumlah"><small style="color:red;">*</small>Qty</label>   
+      <div class="input"><input type="number" id="jumlah" name="jumlah" min="1" onkeyup="//validasi()"></div> 
    </div>
 
    <script type="text/javascript">
@@ -64,16 +64,16 @@ function validateForm() {
             // }
         </script> 
    <div class="form-group">
-        <label>Jenis Transaksi</label>
+        <label><small style="color:red;">*</small>Jenis Transaksi</label>
         <span>
-              <input type="radio" name="jenistransaksi" id="cekboxoff" onclick="run();" value="debet" required/>Debet
-              <input type="radio" name="jenistransaksi" id="cekboxon" onclick="run();" value="kredit"  />Kredit
+              <input type="radio" name="jenistransaksi" id="cekboxoff" onclick="//run();" value="debet" required/>Debet
+              <input type="radio" name="jenistransaksi" id="cekboxon" onclick="//run();" value="kredit"  />Kredit
         </span>
     </div>
 
     <div class="form-group">
-      <label for="bukti_pembayaran">Struk Pembayaran</label>   
-      <div class="input"><input type="file" id="cb" name="file" onkeyup="validasi()"></div> 
+      <label for="bukti_pembayaran"><small style="color:red;">*</small>Struk Pembayaran</label>   
+      <div class="input"><input type="file" id="cb" name="file" onkeyup="//validasi()"></div> 
    </div>
 
    <div class="form-group">

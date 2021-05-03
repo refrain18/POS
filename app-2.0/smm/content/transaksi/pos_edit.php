@@ -17,29 +17,29 @@ function validateForm() {
 </script>
 
 <h2 class="judul">Edit POS</h2>
-<form name="myForm" onsubmit="return validateForm()" method="post" action="?hal=pos_update">
+<form name="myForm" onsubmit="return validateForm()" method="post" action="?mod=transaksi&hal=pos_update">
    <input type="hidden" name="payment_id" value="<?= $data['payment_id'] ?>">
 
    <div class="form-group">
-      <label for="namaproduk">Nama Produk</label>   
+      <label for="namaproduk"><small style="color:red;">*</small>Nama Produk</label>   
       <div class="input">
-         <input type="text" id="namaproduk" name="namaproduk" value="<?= $data['nama_produk'] ?>">
+         <input type="text" id="namaproduk" name="namaproduk" value="<?= $data['nama_produk'] ?>" required>
       </div> 
    </div>
 
    <div class="form-group">
-      <label for="harga">Harga</label>   
-      <div class="input"><input type="number" id="harga" name="harga" value="<?= $data['harga'] ?>"></div> 
+      <label for="harga"><small style="color:red;">*</small>Harga</label>   
+      <div class="input"><input type="number" id="harga" name="harga" value="<?= $data['harga'] ?>" required></div> 
    </div>
 
    <div class="form-group">
-      <label for="diskon">Diskon</label>   
-      <div class="input"><input type="number" id="diskon" name="diskon" value="<?= $data['diskon'] ?>"></div> 
+      <label for="diskon">Diskon (Persen)</label>   
+      <div class="input"><input type="number" id="diskon" name="diskon" min="0" max="100" value="<?= $data['diskon'] ?>"></div> 
    </div>
 
    <div class="form-group">
-      <label for="jumlah">QTY</label>   
-      <div class="input"><input type="number" id="jumlah" name="jumlah" onkeyup="validasi()" value="<?= $data['qty'] ?>"></div> 
+      <label for="jumlah"><small style="color:red;">*</small>QTY</label>
+      <div class="input"><input type="number" id="jumlah" name="jumlah" min="1" onkeyup="//validasi()" value="<?= $data['qty'] ?>"></div> 
    </div>
 
    <div class="form-group">

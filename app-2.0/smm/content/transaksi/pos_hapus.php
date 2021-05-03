@@ -5,7 +5,7 @@
 
    if($query){
       echo "Data berhasil dihapus!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=pos'>";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=transaksi&hal=pos'>";
    }else{
       echo "Tidak dapat menyimpan data!<br>";
       echo mysqli_error($con);

@@ -14,10 +14,10 @@
       $tipefile = $_FILES["file"]["type"];
       $ukuranfile = $_FILES["file"]["size"];
       if($tipefile != "image/jpeg" and $tipefile != "image/jpg" and $tipefile != "image/png"){
-          header("location: ?hal=pos_tambah&payment_id=$payment_id&notif=tipefile");
+          header("location: ?mod=transaksi&hal=pos_tambah&payment_id=$payment_id&notif=tipefile");
           die();
       }elseif ($ukuranfile >= 3000000) {
-          header("location: ?hal=pos_tambah&payment_id=$payment_id&notif=ukuranfile");
+          header("location: ?mod=transaksi&hal=pos_tambah&payment_id=$payment_id&notif=ukuranfile");
           die();
       }else{
           move_uploaded_file($_FILES["file"]["tmp_name"], "images/bukti_pembayaran/".$nama_file);
@@ -36,7 +36,7 @@
 
    if($query){
       echo "Data berhasil disimpan!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=pos'>";
+      // echo "<meta http-equiv='refresh' content='1; url=?mod=transaksi&hal=pos'>";
    }else{
       echo "Tidak dapat menyimpan data!<br>";
       echo mysqli_error($con);

@@ -3,7 +3,7 @@
 ?>
 
 <h2 class="judul">Laporan Keuangan Harian</h2>
-<a class="tombol" href="?hal=pos_tambah">Tambah</a>
+<a class="tombol" href="?mod=transaksi&hal=pos_tambah">Tambah</a>
 <?php if($level == 'owner') : ?>   
 <table class="table">
    <thead>
@@ -38,8 +38,8 @@
          <td><?= $data['jenis_transaksi'] ?></td>
          <td><?= $data['sub_total'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=pos_edit&payment_id=<?= $data['payment_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=pos_hapus&payment_id=<?= $data['payment_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=transaksi&hal=pos_edit&payment_id=<?= $data['payment_id'] ?>"> Edit </a>
+            <a class="tombol hapus" href="?mod=transaksi&hal=pos_hapus&payment_id=<?= $data['payment_id'] ?>"> Hapus </a>
          </td>
      </tr>
 <?php
