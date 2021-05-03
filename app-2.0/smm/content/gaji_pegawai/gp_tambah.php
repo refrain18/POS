@@ -93,7 +93,7 @@
    }
 </script>
 <h2 class="judul">Tambah Gaji Pegawai</h2>
-<form name="myForm" onsubmit="return validateForm(this)" method="post" action="?hal=gp_insert" enctype="multipart/form-data">
+<form name="myForm" onsubmit="return validateForm(this)" method="post" action="?mod=gaji_pegawai&hal=gp_insert" enctype="multipart/form-data">
 	 <div class="form-group">
 			<label >Periode</label>   
 			<div class="#">

@@ -1,9 +1,13 @@
 <?php
    if(!defined('INDEX')) die("");
 
-   $awal = $_POST["awal"];
-   $akhir = $_POST["akhir"];
-   $nama = $_POST["nama"];
+   $id = isset($_POST['gaji_id']) ? $_POST['gaji_id'] : '';
+   if ($id === '') {
+      echo "Error Request!";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=gaji_pegawai&hal=gaji_pegawai'>";
+      die();
+   }
+   
    $gaji_pokok = (int) $_POST["gajipokok"];
    $tunjangan = (int) $_POST["tunjangan"];
    $loyalitas = (int) $_POST["loyalitas"];
@@ -12,12 +16,8 @@
    $total_gaji = (int) $_POST["totalgaji"];
    $tpi_tel = (int) $_POST["tpi_tel"];
    $total_terima = (int) $_POST["totalterima"];
-   
 
    $query = mysqli_query($con, "UPDATE gaji SET
-      periode_awal = '$awal',
-      periode_akhir = '$akhir',
-      nama_pegawai = '$nama',
       gaji_pokok = '$gaji_pokok',
       tunjangan = '$tunjangan',
       loyalitas = '$loyalitas',
@@ -26,11 +26,11 @@
       total_gaji = '$total_gaji',
       tpi_tel = '$tpi_tel',
       total_terima = '$total_terima'
-   WHERE gaji_id='$_POST[gaji_id]'");
+   WHERE gaji_id = '$id'");
 
    if($query){
       echo "Data berhasil disimpan!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=gaji_pegawai'>";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=gaji_pegawai&hal=gaji_pegawai'>";
    }else{
       echo "Tidak dapat menyimpan data!<br>";
       echo mysqli_error($con);

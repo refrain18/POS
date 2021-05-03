@@ -1,7 +1,7 @@
 <?php
    if(!defined('INDEX')) die("");
 
-   $query = mysqli_query($con, "SELECT * FROM gaji WHERE gaji_id='$_GET[gaji_id]'");
+   $query = mysqli_query($con, "SELECT gaji.*, pegawai.nama FROM gaji JOIN pegawai ON gaji.pegawai_id = pegawai.pegawai_id WHERE gaji_id='$_GET[gaji_id]'");
    $data = mysqli_fetch_array($query);
 ?>
 
@@ -17,17 +17,17 @@ function validateForm() {
 </script>
 
 <h2 class="judul">Edit Gaji Pegawai</h2>
-<form name="myForm" onsubmit="return validateForm()" method="post" action="?hal=gp_update">
+<form name="myForm" onsubmit="return validateForm()" method="post" action="?mod=gaji_pegawai&hal=gp_update">
    <input type="hidden" name="gaji_id" value="<?= $data['gaji_id'] ?>">
 
    <div class="form-group">
       <label for="namaproduk">Periode</label>   
-      <div class="#"><input type="date" id="awal" name="awal" value="<?= $data['periode_awal'] ?>"/>S/D
-      <input  type="date" id="akhir" name="akhir" value="<?= $data['periode_akhir'] ?>" onkeyup="validasi()"></div>
+      <div class="#"><input type="date" id="awal" name="awal" value="<?= $data['periode_awal'] ?>" readonly />S/D
+      <input  type="date" id="akhir" name="akhir" value="<?= $data['periode_akhir'] ?>" onkeyup="validasi()" readonly></div>
    </div>
    <div class="form-group">
       <label for="harga">Nama Pegawai</label>   
-      <div class="input"><input type="text" id="nama" name="nama" value="<?= $data['nama_pegawai'] ?>" required></div> 
+      <div class="input"><input type="text" id="nama" name="nama" value="<?= $data['nama'] ?>" readonly></div> 
    </div>    
    <div class="form-group">
       <label for="harga">Gaji Pokok</label>   
@@ -53,7 +53,7 @@ function validateForm() {
    </div>
    <div class="form-group">
       <label for="jumlah">Total Gaji</label>   
-      <div class="input"><input type="number" id="totalgaji" name="totalgaji" onkeyup="kurangin();" value="<?= $data['total_gaji'] ?>"></div> 
+      <div class="input"><input type="number" id="totalgaji" name="totalgaji" onkeyup="kurangin();" value="<?= $data['total_gaji'] ?>" readonly></div> 
    </div>
    <div class="form-group">
       <label for="jumlah">Tidak Piket & Telponan</label>   
@@ -61,10 +61,10 @@ function validateForm() {
    </div>
    <div class="form-group">
       <label for="jumlah">Total Terima</label>   
-      <div class="input"><input type="number" id="totalterima" name="totalterima" value="<?= $data['total_terima'] ?>"></div> 
+      <div class="input"><input type="number" id="totalterima" name="totalterima" value="<?= $data['total_terima'] ?>" readonly></div> 
    </div>
    <div class="form-group">
-      <input type="submit" value="Edit" class="tombol simpan">
+      <input type="submit" value="Simpan" class="tombol simpan">
    </div>
 
    <script>

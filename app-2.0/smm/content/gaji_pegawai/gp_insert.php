@@ -18,7 +18,7 @@
       $kedisiplinan === '' || $transport_umakan === '' || $total_gaji === '' || $tpi_tel === '' || $total_terima === ''
    ) {
       echo "<b>Kesalahan Program:</b> <i>Input invalid!</i>";
-      echo "<meta http-equiv='refresh' content='3; url=?hal=gaji_pegawai'>";
+      echo "<meta http-equiv='refresh' content='3; url=?mod=gaji_pegawai&hal=gaji_pegawai'>";
       die();
    }
 
@@ -38,9 +38,9 @@
 
    if($query){
       echo "<b>Data berhasil disimpan!</b>";
-      echo "<meta http-equiv='refresh' content='2; url=?hal=gaji_pegawai'>";
+      echo "<meta http-equiv='refresh' content='2; url=?mod=gaji_pegawai&hal=gaji_pegawai'>";
    }else{
       echo "<b>Tidak dapat menyimpan data!</b><br><br>";
       echo "<b>Kesalahan pada query SQL: </b><i>".mysqli_error($con)."</i>";
-      echo "<meta http-equiv='refresh' content='3; url=?hal=gaji_pegawai'>";
+      echo "<meta http-equiv='refresh' content='3; url=?mod=gaji_pegawai&hal=gaji_pegawai'>";
    }

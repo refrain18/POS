@@ -1,11 +1,16 @@
 <?php
    if(!defined('INDEX')) die("");
+   
+   $filter_thn = isset($_GET['filter_thn']) ? $_GET['filter_thn'] : '';
+   // Set Time Zone    
+   ini_set('date.timezone', 'Asia/Jakarta');
+   $currentYear = date('Y');
 ?>
 
 <h2 class="judul">Sistem Penggajian Pegawai</h2>
 <br>
-<a class="tombol" href="?hal=gp_tambah">Tambah</a>
-<a class="cetak" href="?hal=gp_cetak">Cetak</a>
+<a class="tombol" href="?mod=gaji_pegawai&hal=gp_tambah">Tambah</a>
+<a class="cetak" target="_BLANK" href="./content/gaji_pegawai/gp_cetak.php?q=<?= !empty($filter_thn) ? $filter_thn : $currentYear; ?>" style="margin: 0px 0px 15px 0;">Cetak</a>
 
 <table class="table">
    <thead>
@@ -52,8 +57,8 @@
          <td><?= $data['tpi_tel'] ?></td>
          <td><?= $data['total_terima'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=gp_edit&gaji_id=<?= $data['gaji_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=gp_hapus&gaji_id=<?= $data['gaji_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=gaji_pegawai&hal=gp_edit&gaji_id=<?= $data['gaji_id'] ?>"> Edit </a>
+            <a class="tombol hapus" href="?mod=gaji_pegawai&hal=gp_hapus&gaji_id=<?= $data['gaji_id'] ?>"> Hapus </a>
          </td>
      </tr>
 <?php
