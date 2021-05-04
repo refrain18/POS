@@ -37,7 +37,7 @@
 
       if ($execLastQuery) {
          echo "Data berhasil disimpan!";
-         echo "<meta http-equiv='refresh' content='1; url=?hal=data_pegawai'>";
+         echo "<meta http-equiv='refresh' content='1; url=?mod=pegawai&hal=data_pegawai'>";
          die();
       }
    } 

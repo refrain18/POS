@@ -4,7 +4,7 @@
    if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
       $id_user = $_GET['user_id'];
    } else {
-      echo "<meta http-equiv='refresh' content='1; url=?hal=data_pegawai'>";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=pegawai&hal=data_pegawai'>";
    }
    $query = mysqli_query(
       $con, 
@@ -12,7 +12,7 @@
    ) or die('Terjadi kesalahan query: '.mysqli_error($con));
    
    if (mysqli_num_rows($query) <= 0) {
-      echo "<meta http-equiv='refresh' content='1; url=?hal=data_pegawai'>";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=pegawai&hal=data_pegawai'>";
    }
 
    $data = mysqli_fetch_assoc($query);
@@ -22,6 +22,7 @@
 <script>
 function validateForm(context) {
    try {
+      if (!confirm('Lanjutkan menyimpan data!')) return false;
       let form = context;
       let validasiHuruf = /^[a-zA-Z ]+$/;  
       let inputNama = form.nama.value;
@@ -49,7 +50,7 @@ function validateForm(context) {
 </script>
 
 <h2 class="judul">Edit Data Pegawai</h2>
-<form name="myForm" onsubmit="return validateForm(this)" method="post" action="?hal=update_pg">
+<form name="myForm" onsubmit="return validateForm(this)" method="post" action="?mod=pegawai&hal=update_pg">
    <input type="hidden" name="user_id" value="<?= $data['user_id'] ?>">
 
    <div class="form-group">

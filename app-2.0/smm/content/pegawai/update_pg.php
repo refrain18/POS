@@ -2,7 +2,6 @@
    if(!defined('INDEX')) die("");
 
    $id_user = $_POST['user_id'];
-   $id_pegawai = $_POST['pegawai_id'];
    $nama = $_POST["nama"];
    $tmp_lahir = $_POST["tmpt_lahir"];
    $tgl_lahir = $_POST["tgl_lahir"];
@@ -39,7 +38,7 @@
       // Cek jika update pada tabel user berhasil 
       if (mysqli_query($con, $queryPegawai)) {
          echo "Data berhasil diperbaharui!";
-         echo "<meta http-equiv='refresh' content='1; url=?hal=data_pegawai'>";
+         echo "<meta http-equiv='refresh' content='1; url=?mod=pegawai&hal=data_pegawai'>";
          die();
       }
    } 

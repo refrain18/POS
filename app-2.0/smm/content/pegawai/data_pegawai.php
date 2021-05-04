@@ -3,8 +3,8 @@
 ?>
 
 <h2 class="judul">Data Pegawai</h2>
-<a class="tombol" href="?hal=tambah_pg">Tambah</a>
-<!-- <a class="cetak" href="?hal=cetak_pg">Cetak</a> -->
+<a class="tombol" href="?mod=pegawai&hal=tambah_pg">Tambah</a>
+<!-- <a class="cetak" target="_BLANK" href="./content/pegawai/cetak_pg.php" style="margin: 0px 0px 15px 0;">Cetak</a> -->
 
 <table class="table">
    <thead>
@@ -39,8 +39,8 @@
          <td><?= $data['tanggal_bergabung'] ?></td>
          <td><?= $data['status'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=edit_pg&user_id=<?= $data['user_id'] ?>"> Edit </a>
-            <a class="tombol hapus" onclick="confirm('Aksi ini akan menghapus data secara permanen?')" href="?hal=hapus_pg&user_id=<?= $data['user_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=pegawai&hal=edit_pg&user_id=<?= $data['user_id'] ?>"> Edit </a>
+            <a class="tombol hapus" onclick="confirm('Aksi ini akan menghapus data secara permanen?')" href="?mod=pegawai&hal=hapus_pg&user_id=<?= $data['user_id'] ?>"> Hapus </a>
          </td>
      </tr>
 <?php
