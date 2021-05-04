@@ -5,9 +5,9 @@
 
    if($query){
       echo "Data berhasil dihapus!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=stok_keluarM'>";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=stok_keluar&hal=stok_keluarM'>";
    }else{
-      echo "Tidak dapat menyimpan data!<br>";
+      echo "Tidak dapat menghapus data!<br>";
       echo mysqli_error($con);
    }
 ?>

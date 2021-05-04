@@ -41,9 +41,8 @@
       // "stok_masukM","sm_tambah","sm_insert","sm_edit",
       // "sm_update","sm_hapus",
       "rekap_sm","rsm_cetak",
-      "rsm_detail","rsm_cetak_detail","stok_keluarM",
-      "sk_tambah","sk_insert","sk_edit","sk_update",
-      "sk_hapus","rekap_sk","rsk_cetak","rsk_detail",
+      "rsm_detail","rsm_cetak_detail",
+      "rekap_sk","rsk_cetak","rsk_detail",
       "rsk_cetak_detail"
    );
 

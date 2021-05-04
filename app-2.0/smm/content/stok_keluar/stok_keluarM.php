@@ -4,7 +4,7 @@
 
 <h2 class="judul">Penggunaan Produk Mingguan</h2>
 <br>
-<a class="tombol" href="?hal=sk_tambah">Tambah</a>
+<a class="tombol" href="?mod=stok_keluar&hal=sk_tambah">Tambah</a>
 
 <table class="table">
    <thead>
@@ -30,8 +30,8 @@
          <td><?= $data['nama_produk'] ?></td>
          <td><?= $data['stok'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=sk_edit&sk_id=<?= $data['sk_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=sk_hapus&sk_id=<?= $data['sk_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=stok_keluar&hal=sk_edit&sk_id=<?= $data['sk_id'] ?>"> Edit </a>
+            <a class="tombol hapus" href="?mod=stok_keluar&hal=sk_hapus&sk_id=<?= $data['sk_id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"> Hapus </a>
          </td>
      </tr>
 <?php

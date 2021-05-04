@@ -3,22 +3,12 @@
 ?>
 
 <h2 class="judul">Tambah Stok Keluar Produk Salon Mumtaza</h2>
-<form name="myForm" onsubmit="return validateForm()" method="post" action="?hal=sk_insert" enctype="multipart/form-data">
+<form name="myForm" onsubmit="return confirm('Lanjutkan menyimpan data?')" method="post" action="?mod=stok_keluar&hal=sk_insert" enctype="multipart/form-data">
 
-   <?php
-      
-    //   $notif = isset($_GET['notif']) ? $_GET['notif'] : false;
-
-    //   if($notif == 'tipefile') {
-    //      echo "<div class='notif' id='notif'>Tipe file tidak didukung!</div>";
-    //   }elseif($notif == 'ukuranfile') {
-    //      echo "<div class='notif' id='notif'>Ukuran file tidak boleh lebih dari 1MB</div>";
-    //   }
-
-   ?>
-     <div class="form-group">
-      <label for="nama_produk">Nama Produk</label>   
-      <div class="input"><select name="produk_id">
+    <div class="form-group">
+        <label for="nama_produk"><small style="color:red;">*</small>Nama Produk</label>   
+        <div class="input">
+            <select name="produk_id" required>
                 <?php
                     $query = mysqli_query($con, "SELECT produk_id, nama_produk FROM produk_salon ORDER BY produk_id ASC");
                     while($row=mysqli_fetch_assoc($query)){
@@ -29,11 +19,12 @@
                         }
                     }
                 ?>
-            </select></div> 
+            </select>
+        </div> 
    </div>
    <div class="form-group">
-      <label for="stok_keluar">Junlah Stok Keluar</label>   
-      <div class="input"><input type="number" id="stok" name="stok" onkeyup="validasi()" required></div> 
+      <label for="stok_keluar"><small style="color:red;">*</small>Jumlah Stok Keluar</label>   
+      <div class="input"><input type="number" id="stok" name="stok" min="1" required></div> 
    </div>
    <div class="form-group">
       <input type="submit" value="Simpan" class="tombol simpan">
