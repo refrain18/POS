@@ -10,13 +10,12 @@
 
 <h2 class="judul">Detail Harga Produk Salon Mumtaza Perbulan</h2>
 <div class="label_123">
-    <label class="l_nama_produk" for="">Nama Produk : <?= $res['nama_produk'] ?></label>
-    <br>
-    <label class="l_bulan" for="">Bulan :</label>
-    <label class="l_tahun" for="">Tahun :</label>
-
+   <label class="l_nama_produk" for="">Nama Produk : <?= $res['nama_produk'] ?></label>
+   <!-- <br>
+   <label class="l_bulan" for="">Bulan :</label>
+   <label class="l_tahun" for="">Tahun :</label> -->
 </div>
-<a class="cetak" target="_BLANK" href="./content/daftar_harga_produk_perbulan/dh_cetak_detail.php?q=" style="margin: 0px 0px 15px 0;">Cetak</a>
+<!-- <a class="cetak" target="_BLANK" href="./content/daftar_harga_produk_perbulan/dh_cetak_detail.php?q=" style="margin: 0px 0px 15px 0;">Cetak</a> -->
 <br>
 </br>
 <table class="table">

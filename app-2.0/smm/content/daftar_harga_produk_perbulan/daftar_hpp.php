@@ -35,8 +35,8 @@
 </script>
 
 <h2 class="judul">Daftar Harga Produk Salon Mumtaza Perbulan</h2>
-<br>
-<div>
+<!-- <br> -->
+<div style="visibility:hidden;">
 <form action="">   
 <label class="label_bulan" for="">Bulan</label>
 <select class="select_bulan" style="padding:0;" name="bulan" id="bulan" onchange="//getData();">
@@ -72,8 +72,8 @@ $execQuery = mysqli_query($con, $stmt);
 </select>
 </form>
 </div>
-<a class="cetak" target="_BLANK" href="./content/daftar_harga_produk_perbulan/dh_cetak.php?q=" style="margin: 0px 0px 15px 0;">Cetak</a>
-<br>
+<!-- <a class="cetak" target="_BLANK" href="./content/daftar_harga_produk_perbulan/dh_cetak.php?q=" style="margin: 0px 0px 15px 0;">Cetak</a> -->
+<!-- <br> -->
 
 </br>
 </br>
