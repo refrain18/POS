@@ -3,7 +3,7 @@
 ?>
 
 <h2 class="judul">Stok Masuk Mingguan</h2>
-<a class="tombol" href="?hal=sm_tambah">Tambah</a>
+<a class="tombol" href="?mod=stok_masuk&hal=sm_tambah">Tambah</a>
 
 <table class="table">
    <thead>
@@ -18,8 +18,7 @@
    </thead>
    <tbody>
 <?php
-   $query = mysqli_query($con, "SELECT stok_masuk.*, produk_salon.nama_produk FROM stok_masuk JOIN produk_salon ON 
-                                stok_masuk.produk_id = produk_salon.produk_id ORDER BY stok_masuk_id DESC");
+   $query = mysqli_query($con, "SELECT stok_masuk.*, produk_salon.nama_produk FROM stok_masuk JOIN produk_salon ON stok_masuk.produk_id = produk_salon.produk_id ORDER BY stok_masuk_id DESC");
    $no = 0;
    while($data = mysqli_fetch_array($query)){
       $no++;
@@ -31,8 +30,8 @@
          <td><?= $data['harga'] ?></td>
          <td><?= $data['stok'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=sm_edit&stok_masuk_id=<?= $data['stok_masuk_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=sm_hapus&stok_masuk_id=<?= $data['stok_masuk_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=stok_masuk&hal=sm_edit&stok_masuk_id=<?= $data['stok_masuk_id'] ?>"> Edit </a>
+            <a class="tombol hapus" href="?mod=stok_masuk&hal=sm_hapus&stok_masuk_id=<?= $data['stok_masuk_id'] ?>" onclick="return confirm('Anda yakin ingin menghapus data ini?')"> Hapus </a>
          </td>
      </tr>
 <?php

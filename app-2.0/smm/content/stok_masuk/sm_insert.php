@@ -16,7 +16,7 @@
 
    if($query){
       echo "Data berhasil disimpan!";
-      echo "<meta http-equiv='refresh' content='1; url=?hal=stok_masukM'>";
+      echo "<meta http-equiv='refresh' content='1; url=?mod=stok_masuk&hal=stok_masukM'>";
    }else{
       echo "Tidak dapat menyimpan data!<br>";
       echo mysqli_error($con);
