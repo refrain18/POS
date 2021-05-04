@@ -3,7 +3,7 @@
 ?>
 
 <h2 class="judul">Jenis Perawatan</h2>
-<a class="tombol" href="?hal=jp_tambah">Tambah</a>
+<a class="tombol" href="?mod=jenis_perawatan&hal=jp_tambah">Tambah</a>
 
 <table class="table">
    <thead>
@@ -30,8 +30,8 @@
          <td><?= $data['waktu'] ?></td>
          <td><?= $data['komisi'] ?></td>
          <td>
-            <a class="tombol edit" href="?hal=jp_edit&jp_id=<?= $data['jp_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?hal=jp_hapus&jp_id=<?= $data['jp_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=jenis_perawatan&hal=jp_edit&jp_id=<?= $data['jp_id'] ?>"> Edit </a>
+            <a class="tombol hapus" href="?mod=jenis_perawatan&hal=jp_hapus&jp_id=<?= $data['jp_id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"> Hapus </a>
          </td>
      </tr>
 <?php
