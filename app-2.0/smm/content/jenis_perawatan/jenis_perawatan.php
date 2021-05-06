@@ -26,9 +26,9 @@
       <tr>
          <td><?= $no ?></td>
          <td><?= $data['nama_perawatan'] ?></td>
-         <td><?= $data['harga'] ?></td>
+         <td><?= rupiah($data['harga']) ?></td>
          <td><?= $data['waktu'] ?></td>
-         <td><?= $data['komisi'] ?></td>
+         <td><?= rupiah($data['komisi']) ?></td>
          <td>
             <a class="tombol edit" href="?mod=jenis_perawatan&hal=jp_edit&jp_id=<?= $data['jp_id'] ?>"> Edit </a>
             <a class="tombol hapus" href="?mod=jenis_perawatan&hal=jp_hapus&jp_id=<?= $data['jp_id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"> Hapus </a>

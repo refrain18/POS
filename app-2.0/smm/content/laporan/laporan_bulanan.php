@@ -43,10 +43,10 @@
             <td><?= $data['payment_id'] ?></td>
             <td><?= $data['tgl'] ?></td>
             <td><?= $data['nama_produk'] ?></td>
-            <td><?= $data['harga'] ?></td>
+            <td><?= titik($data['harga']) ?></td>
             <td><?= $data['diskon'] ?></td>
             <td><?= $data['qty'] ?></td>
-            <td><?= $data['sub_total'] ?></td>
+            <td><?= titik($data['sub_total']) ?></td>
          </tr>
          <?php
             // Akumulasi Sub Total 
@@ -57,7 +57,7 @@
       <tfoot>
          <tr>
             <td colspan="6"><center><b>Grand Total</b></center></td>
-            <td><?= $grandTotal ?></td>
+            <td><?= rupiah($grandTotal) ?></td>
          </tr>
       </tfoot>
    </table>
@@ -74,6 +74,7 @@
          <th>Bulan</th>
          <th>Total Pemasukan</th>
          <th>Total Pengeluaran</th>
+         <th>Laba Bersih</th>
          <th>Aksi</th>
       </tr>
    </thead>
@@ -97,8 +98,9 @@
 ?>
       <tr>
          <td><?= $data['bulan'] ?></td>
-         <td><?= !empty($data['income']) ? $data['income'] : "-" ?></td>
-         <td><?= !empty($data['outcome']) ? $data['outcome'] : "-"; ?></td>
+         <td><?= !empty($data['income']) ? rupiah($data['income']) : "-" ?></td>
+         <td><?= !empty($data['outcome']) ? rupiah($data['outcome']) : "-"; ?></td>
+         <td><?= rupiah($data['income'] - $data['outcome'])?></td>
          <td>
             <a class="tombol edit" href="?mod=laporan&hal=laporan_bulanan&filter=<?= "debet,".strtolower($data['bulan']) ?>"> Detail Debet</a>
             <a class="tombol edit" href="?mod=laporan&hal=laporan_bulanan&filter=<?= "kredit,".strtolower($data['bulan']) ?>"> Detail Kredit</a>

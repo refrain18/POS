@@ -27,7 +27,7 @@
          <td><?= $no ?></td>
          <td><?= $data['nama_produk'] ?></td>
          <td><?= $data['stok'] ?></td>
-         <td><?= $data['harga'] ?></td>
+         <td><?= rupiah($data['harga']) ?></td>
          <td>
             <a class="tombol edit" href="?mod=daftar_produk&hal=dp_edit&produk_id=<?= $data['produk_id'] ?>"> Edit </a>
             <a class="tombol hapus" href="?mod=daftar_produk&hal=dp_hapus&produk_id=<?= $data['produk_id'] ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"> Hapus </a>

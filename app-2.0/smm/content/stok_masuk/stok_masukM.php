@@ -27,7 +27,7 @@
          <td><?= $no ?></td>
          <td><?= $data['tanggal'] ?></td>
          <td><?= $data['nama_produk'] ?></td>
-         <td><?= $data['harga'] ?></td>
+         <td><?= rupiah($data['harga']) ?></td>
          <td><?= $data['stok'] ?></td>
          <td>
             <a class="tombol edit" href="?mod=stok_masuk&hal=sm_edit&stok_masuk_id=<?= $data['stok_masuk_id'] ?>"> Edit </a>

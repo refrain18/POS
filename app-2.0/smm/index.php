@@ -12,6 +12,15 @@
   } else {
     define('INDEX', true);
     $level = $_SESSION['smm_sessionArr']['level'];
+
+    function rupiah($nilai = 0) {
+        $string ="<p align=right> Rp, ".number_format($nilai)."</p>";
+        return $string;
+    }
+    function titik($nilai = 0) {
+        $string ="<p align=right>".number_format($nilai)."</p>";
+        return $string;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

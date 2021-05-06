@@ -103,7 +103,7 @@ $execQuery = mysqli_query($con, $stmt);
    <tr>
       <td><?= ++$no ?></td>
       <td><?= $data['nama_produk'] ?></td>
-      <td><?= $data['hrg_rata'] ?></td>
+      <td><?= rupiah($data['hrg_rata']) ?></td>
       <td>
          <a class="tombol_detail" href="?mod=daftar_harga_produk_perbulan&hal=dh_detail&produk_id=<?= $data['produk_id'] ?>"> Detail </a>
       </td>

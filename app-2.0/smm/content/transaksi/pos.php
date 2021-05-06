@@ -32,11 +32,11 @@
       <tr>
          <td><?= $no ?></td>
          <td><?= $data['nama_produk'] ?></td>
-         <td><?= $data['harga'] ?></td>
+         <td><?= rupiah($data['harga']) ?></td>
          <td><?= $data['diskon'] ?></td>
          <td><?= $data['qty'] ?></td>
          <td><?= $data['jenis_transaksi'] ?></td>
-         <td><?= $data['sub_total'] ?></td>
+         <td><?= rupiah($data['sub_total']) ?></td>
          <td>
             <a class="tombol edit" href="?mod=transaksi&hal=pos_edit&payment_id=<?= $data['payment_id'] ?>"> Edit </a>
             <a class="tombol hapus" href="?mod=transaksi&hal=pos_hapus&payment_id=<?= $data['payment_id'] ?>"> Hapus </a>

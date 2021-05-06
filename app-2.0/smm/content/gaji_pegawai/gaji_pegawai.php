@@ -47,15 +47,15 @@
          <td><?= $no ?></td>
          <td><?= date('d F Y',strtotime($data['periode_awal'])) ."&nbsp;<br>s/d<br>&nbsp;". date('d F Y',strtotime($data['periode_akhir'])) ?></td>
          <td><?= $data['nama'] ?></td>
-         <td><?= $data['gaji_pokok'] ?></td>
-         <td><?= $data['tunjangan'] ?></td>
-         <td><?= $data['loyalitas'] ?></td>
-         <td><?= $data['kedisiplinan'] ?></td>
-         <td><?= $data['transport_umakan'] ?></td>
-         <td><?= $data['komisi'] !== null ? $data['komisi'] : 0; ?></td>
-         <td><?= $data['total_gaji'] ?></td>
-         <td><?= $data['tpi_tel'] ?></td>
-         <td><?= $data['total_terima'] ?></td>
+         <td><?= titik($data['gaji_pokok']) ?></td>
+         <td><?= titik($data['tunjangan']) ?></td>
+         <td><?= titik($data['loyalitas']) ?></td>
+         <td><?= titik($data['kedisiplinan']) ?></td>
+         <td><?= titik($data['transport_umakan']) ?></td>
+         <td><?= $data['komisi'] !== null ? titik($data['komisi']) : 0; ?></td>
+         <td><?= titik($data['total_gaji']) ?></td>
+         <td><?= titik($data['tpi_tel']) ?></td>
+         <td><?= rupiah($data['total_terima']) ?></td>
          <td>
             <a class="tombol edit" href="?mod=gaji_pegawai&hal=gp_edit&gaji_id=<?= $data['gaji_id'] ?>"> Edit </a>
             <a class="tombol hapus" href="?mod=gaji_pegawai&hal=gp_hapus&gaji_id=<?= $data['gaji_id'] ?>"> Hapus </a>

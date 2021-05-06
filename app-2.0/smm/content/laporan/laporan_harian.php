@@ -24,7 +24,14 @@
    </thead>
    <tbody>
 <?php
-   $query = mysqli_query($con, "SELECT * FROM payment ORDER BY payment_id ASC");
+   // Mengambil current timestamp
+   ini_set('date.timezone', 'Asia/Jakarta');
+
+   //bagaimana caranya supaya tampil perbulan?
+   $timestamp = date('Y-m-d');
+// var_dump($timestamp);die;
+
+   $query = mysqli_query($con, "SELECT * FROM payment WHERE waktu = '$timestamp'  ORDER BY payment_id ASC");
    $saldo = 0;
    
    while($data = mysqli_fetch_array($query)){
@@ -34,9 +41,9 @@
          <td><?= date('l, d F y',strtotime($data['waktu'])) ?></td>
          <td><?= $data['nama_produk'] ?></td>
          <td><a target='_blank' href="images/bukti_pembayaran/<?= $gambar ?>"><?= $data['gambar'] ?></a></td>
-         <td align="center"><?= $data['jenis_transaksi'] == "debet" ? $data['sub_total']:"-" ?></td>
-         <td align="center"><?= $data['jenis_transaksi'] == "kredit" ? $data['sub_total']:"-" ?></td>
-         <td align="right"><?= ($data['jenis_transaksi'] == "debet") ? $saldo += $data['sub_total'] : $saldo -= $data['sub_total'] ?></td>
+         <td align="center"><?= $data['jenis_transaksi'] == "debet" ? titik($data['sub_total']):"-" ?></td>
+         <td align="center"><?= $data['jenis_transaksi'] == "kredit" ? titik($data['sub_total']):"-" ?></td>
+         <td align="right"><?= ($data['jenis_transaksi'] == "debet") ? titik($saldo += $data['sub_total']) : titik($saldo -= $data['sub_total']) ?></td>
      </tr>
 <?php
    }
