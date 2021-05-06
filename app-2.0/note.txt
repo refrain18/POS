@@ -1,0 +1,58 @@
+=== Sistem Manajemen Mumtaza ===
+
+___Kebutuhan Sistem/Fitur___
+- tambah cetak pada menu gaji pegawai
+- tambah cetak pada setiap file laporan yang tersisa
+- tambah pagination pada seluruh daftar data yang tersedia
+- menampilkan data rata-rata harga dari tabel stok_masuk berdasarkan bulan & tahun dari filter pada hal daftar harga produk perbulan
+- belum ada validasi pada penambahan data/edit/hapus pegawai
+
+____Pembaharuan Sistem____
+- ubah form/logika tambah produk dan tambah stok produk
+- ubah struktur tabel produk_salon dan tabel stok_masuk
+
+___Bug___
+- data alamat tidak tampil pada form edit data pegawai
+- proses edit pada stok masuk mingguan tidak berfungsi
+- proses edit pada stok keluar mingguan tidak berfungsi
+- belum ada data yang tampil pada daftar stok keluar bulanan
+
+___File Backend kosong___
+ap_hapus
+ap_insert
+ap_update
+dh_cetak_detail
+dh_cetak
+k_hapus
+k_insert
+k_update
+ra_cetak_detail
+ra_cetak
+rk_cetak_detail
+rk_cetak
+rsk_cetak_detail
+rsk_cetak
+rsm_cetak_detail
+rsm_cetak
+
+=== SOP ===
+
+- Timer (Done)
+sop_rundown jika sudah klik start di form tambah sop maka akan pergi ke menu sop rundown di menu itu ada tombol start dan stop, 
+jika waktu terpenuhi maka akan masuk ke database complete jika waktu di stop dan tidak terpenuhi maka akan masuk ke database incomplete 
+dan mengeluarkan textfiled keterangan, waktu tersimpan otomatis jika sudah selesai ataupun di stop.
+
+NB : Singkatan nama file...
+ap - absen pegawai
+dh/daftar_hpp - daftar harga produk perbulan
+dp - daftar produk
+gp - gaji pegawai
+jp - jenis produk
+k - kinerja
+ra - rekap absen
+sk - stok keluar
+sm - stok masuk
+rk - rekap kinerja
+rsk - rekap stok keluar
+rsm - rekap stok masuk
+pg - pegawai
