@@ -27,7 +27,8 @@
       "rsm_detail","rsm_cetak_detail","stok_keluarM",
       "sk_tambah","sk_insert","sk_edit","sk_update",
       "sk_hapus","rekap_sk","rsk_cetak","rsk_detail",
-      "rsk_cetak_detail"
+      "rsk_cetak_detail","laporan_manbul","lmb_tambah",
+      "lmb_insert","lmb_edit","lmb_update","lmb_hapus"
    );
 
    $maintenanceArr = array(

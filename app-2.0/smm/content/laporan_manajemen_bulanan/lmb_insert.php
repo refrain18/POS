@@ -15,10 +15,10 @@
       $tipefile = $_FILES["file"]["type"];
       $ukuranfile = $_FILES["file"]["size"];
       if($tipefile != "image/jpeg" and $tipefile != "image/jpg" and $tipefile != "image/png"){
-          header("location: ?mod=transaksi&hal=pos_tambah&payment_id=$payment_id&notif=tipefile");
+          header("location: ?mod=laporan_manajemen_bulanan&hal=lmb_tambah&payment_id=$payment_id&notif=tipefile");
           die();
       }elseif ($ukuranfile >= 3000000) {
-          header("location: ?mod=transaksi&hal=pos_tambah&payment_id=$payment_id&notif=ukuranfile");
+          header("location: ?mod=laporan_manajemen_bulanan&hal=lmb_tambah&payment_id=$payment_id&notif=ukuranfile");
           die();
       }else{
           move_uploaded_file($_FILES["file"]["tmp_name"], "images/bukti_pembayaran/".$nama_file);

@@ -2,13 +2,14 @@
    if(!defined('INDEX')) die("");
 ?>
 
-<h2 class="judul">Laporan Keuangan Harian</h2>
-<a class="tombol" href="?mod=transaksi&hal=pos_tambah">Tambah</a>
-<?php if($level == 'owner' || $level == 'admin') : ?>   
+<h2 class="judul">Laporan Manajemen Bulanan</h2>
+<a class="tombol" href="?mod=laporan_manajemen_bulanan&hal=lmb_tambah">Tambah</a>
+<?php if($level == 'owner') : ?>   
 <table class="table">
    <thead>
       <tr>
          <th>No</th>
+         <th>Hari/Tanggal</th>
          <th>Nama Transaksi</th>
          <th>Jumlah Transaksi</th>
          <th>Diskon</th>
@@ -22,30 +23,27 @@
 <?php
    // Mengambil current timestamp
    ini_set('date.timezone', 'Asia/Jakarta');
-   $timestamp = date('Y-m-d');
-   
-   if ($level == 'admin') {
-      $ilang = "WHERE waktu = '$timestamp' AND user.level ='admin'";
-   }else{
-      $ilang = "WHERE waktu = '$timestamp'";
-   }
 
-   $query = mysqli_query($con, "SELECT * FROM payment JOIN user ON payment.user_id=user.user_id $ilang ORDER BY payment_id ASC");
+   //menampilkan data berdasarkan bulan dan tahun
+   $timestamp = date('Y-m');
+
+   $query = mysqli_query($con, "SELECT * FROM payment WHERE DATE_FORMAT(waktu,'%Y-%m') = '$timestamp' ORDER BY payment_id ASC");
    $no = 0;
    while($data = mysqli_fetch_array($query)){
       $no++;
 ?>
       <tr>
          <td><?= $no ?></td>
+         <td><?= date('l, d F y',strtotime($data['waktu'])) ?></td>
          <td><?= $data['nama_produk'] ?></td>
          <td><?= rupiah($data['harga']) ?></td>
          <td><?= $data['diskon'] ?></td>
          <td><?= $data['qty'] ?></td>
          <td><?= $data['jenis_transaksi'] ?></td>
-         <td><?= rupiah($data['sub_total']) ?></td>
+         <td><?= titik($data['sub_total']) ?></td>
          <td>
-            <a class="tombol edit" href="?mod=transaksi&hal=pos_edit&payment_id=<?= $data['payment_id'] ?>"> Edit </a>
-            <a class="tombol hapus" href="?mod=transaksi&hal=pos_hapus&payment_id=<?= $data['payment_id'] ?>"> Hapus </a>
+            <a class="tombol edit" href="?mod=laporan_manajemen_bulanan&hal=lmb_edit&payment_id=<?= $data['payment_id'] ?>"> Edit </a>
+            <a class="tombol hapus" href="?mod=laporan_manajemen_bulanan&hal=lmb_hapus&payment_id=<?= $data['payment_id'] ?>"> Hapus </a>
          </td>
      </tr>
 <?php

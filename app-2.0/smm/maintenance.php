@@ -8,6 +8,6 @@
     <h1>We&rsquo;ll be back soon!</h1>
     <div>
         <p>Maaf Website Sedang Maintenance</p>
-        <p>&mdash; Si Tampan Abka</p>
+        <p>&mdash; Developer</p>
     </div>
 </article>

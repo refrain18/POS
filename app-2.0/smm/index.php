@@ -11,8 +11,10 @@
     echo "<meta http-equiv='refresh' content='2; url=login.php'>";
   } else {
     define('INDEX', true);
-    $level = $_SESSION['smm_sessionArr']['level'];
+    $level = str_replace(' ','',$_SESSION['smm_sessionArr']['level']);
+    $user_id = $_SESSION['smm_sessionArr']['user_id'];
 
+    // function rupiah dan titik untuk format angka
     function rupiah($nilai = 0) {
         $string ="<p align=right> Rp, ".number_format($nilai)."</p>";
         return $string;
@@ -53,6 +55,7 @@
                         <?php if($level == 'owner') : ?>
                             <a href="?mod=laporan&hal=laporan_harian">Laporan Harian</a>
                             <a href="?mod=laporan&hal=laporan_bulanan">Laporan Bulanan</a>
+                            <a href="?mod=laporan_manajemen_bulanan&hal=laporan_manbul">Laporan Manajemen Bulanan</a>
                             <a href="?mod=gaji_pegawai&hal=gaji_pegawai">Gaji Pegawai</a>
                             <a href="?mod=daftar_produk&hal=daftar_produk">Daftar Produk Salon</a>
                             <a href="?mod=daftar_harga_produk_perbulan&hal=daftar_hpp">Daftar Harga Produk Perbulan</a>

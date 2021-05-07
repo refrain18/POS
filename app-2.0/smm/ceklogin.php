@@ -11,6 +11,7 @@
 
    if($jml > 0){
       $_SESSION['smm_sessionArr'] = array(
+         'user_id' => $data['user_id'],
          'username' => $data['username'],
          'password' => $data['password'],
          'level' => $data['level']
